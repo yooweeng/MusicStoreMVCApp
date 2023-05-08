@@ -81,24 +81,36 @@ namespace MusicStoreMVCApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var signInManager = HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-                var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-                var result = await userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                if(model.UserType == UserType.Customer)
                 {
-                    await signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email, UserType = UserType.Customer };
+                    var signInManager = HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+                    var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                    var result = await userManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        userManager.AddToRole(user.Id, "Customer");
+                        await signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Home");
+                    }
+                    AddErrors(result);
                 }
-                AddErrors(result);
+                else if(model.UserType == UserType.Seller)
+                {
+                    var db = new MusicStoreAppEntities();
+                    ApprovalList approval = new ApprovalList() { SellerFname = model.Firstname, SellerLname = model.Lastname, Address = model.Address, PhoneNumber = model.PhoneNumber };
+                    db.ApprovalLists.Add(approval);
+                    db.SaveChanges();
+                }
             }
+
 
             // If we got this far, something failed, redisplay form
             return View(model);
