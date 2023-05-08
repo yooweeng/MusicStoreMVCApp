@@ -3,36 +3,54 @@
     ViewBag.Title = "Register";
 }
 
-<h2>@ViewBag.Title.</h2>
+<div class="mt-5" style="display: flex; flex-direction: column; align-items: center;">
+    <h2 class="mb-4">@ViewBag.Title</h2>
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-floating mb-3">
-        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
-        @Html.LabelFor(m => m.Email)
-    </div>
-    <div class="dropdown mb-3">
-        @Html.LabelFor(m => m.UserType, new { @class = "ms-1 mb-1" })
-        @Html.DropDownListFor(m => m.UserType, new SelectList(Enum.GetValues(typeof(MusicStoreMVCApp.Models.UserType))), new { @class = "form-select" })
-    </div>
-    <div class="form-floating mb-3">
-        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-    </div>
-    <div class="form-floating mb-3">
-        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm Password" })
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="container">
+            <div class="row">
+                <div class="col mb-3 ps-0">
+                    @Html.LabelFor(m => m.Firstname, new { @class = "ms-1 mb-1" })
+                    @Html.TextBoxFor(m => m.Firstname, new { @class = "form-control" })
+                </div>
+                <div class="col mb-3 pe-0">
+                    @Html.LabelFor(m => m.Lastname, new { @class = "ms-1 mb-1" })
+                    @Html.TextBoxFor(m => m.Lastname, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row mb-3">
+                @Html.LabelFor(m => m.Address, new { @class = "ms-1 mb-1 px-0" })
+                @Html.TextAreaFor(m => m.Address, 3, 20, new { @class = "form-control" })
+            </div>
+            <div class="row mb-3">
+                @Html.LabelFor(m => m.PhoneNumber, new { @class = "ms-1 mb-1 px-0" })
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+            </div>
+            <div class="row mb-3">
+                @Html.LabelFor(m => m.Email, new { @class = "ms-1 mb-1 px-0" })
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            </div>
+            <div class="row mb-3">
+                @Html.LabelFor(m => m.Password, new { @class = "control-label ms-1 mb-1 px-0" })
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            </div>
+            <div class="row mb-3">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label ms-1 mb-1 px-0" })
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            </div>
+            <div class="row dropdown mb-4">
+                @Html.LabelFor(m => m.UserType, new { @class = "ms-1 mb-1 px-0" })
+                @Html.DropDownListFor(m => m.UserType, new SelectList(new string[2] { "Customer", "Seller" }), new { @class = "form-select" })
+            </div>
         </div>
-    </div>
-}
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" style="align-self: center;" value="Register" />
+        </div>
+    }
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
