@@ -49,6 +49,8 @@ namespace MusicStoreMVCApp.Controllers
                             return RedirectToAction("Index", "Admin");
                         else if (user.UserType == UserType.Customer)
                             return RedirectToAction("Index", "Customer");
+                        else if (user.UserType == UserType.Seller)
+                            return RedirectToAction("Index", "Seller");
                     }
                     return RedirectToAction("Error");
                 case SignInStatus.LockedOut:

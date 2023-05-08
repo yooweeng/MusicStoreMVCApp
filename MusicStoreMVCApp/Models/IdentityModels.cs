@@ -8,13 +8,6 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace MusicStoreMVCApp.Models
 {
-    public enum UserType
-    {
-        Admin = 1,
-        Customer = 2,
-        Seller = 3
-    }
-
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser<long, ApplicationUserLogin, ApplicationUserRole, ApplicationUserClaim>
     {
