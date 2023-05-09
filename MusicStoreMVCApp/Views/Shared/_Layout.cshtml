@@ -13,28 +13,25 @@
         <div class="container-fluid">
             @Html.ActionLink("LetsMovie", "Index", "Home", new { area = "" }, new { @class = "navbar-brand text-white" })
             <div class="navbar-collapse collapse">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    @if (Request.IsAuthenticated)
+                @if (Request.IsAuthenticated)
+                {
+                    if (User.IsInRole("Admin"))
                     {
-                        if (User.IsInRole("Admin"))
-                        {
-                            <li class="nav-item">@Html.ActionLink("Home", "Index", "Admin", new { area = "" }, new { @class = "nav-link text-white" })</li>
-                        }
-                        else if (User.IsInRole("Seller"))
-                        {
-                            <li class="nav-item">@Html.ActionLink("Home", "Index", "Seller", new { area = "" }, new { @class = "nav-link text-white" })</li>
-                        }
-                        else if (User.IsInRole("Customer"))
-                        {
-                            <li class="nav-item">@Html.ActionLink("Home", "Index", "Customer", new { area = "" }, new { @class = "nav-link text-white" })</li>
-                        }
+                        @Html.Partial("_NavbarPartialAdmin")
                     }
-                    else
+                    else if (User.IsInRole("Seller"))
                     {
-                        <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link text-white" })</li>
+                        @Html.Partial("_NavbarPartialSeller")
                     }
-                    <li class="nav-item">@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link text-white" })</li>
-                </ul>
+                    else if (User.IsInRole("Customer"))
+                    {
+                        @Html.Partial("_NavbarPartialCustomer")
+                    }
+                }
+                else
+                {
+                    @Html.Partial("_NavbarPartialDefault")
+                }
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

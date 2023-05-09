@@ -2434,6 +2434,10 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Shared\_NavbarPartialAdmin.cshtml" />
+    <Content Include="Views\Shared\_NavbarPartialSeller.cshtml" />
+    <Content Include="Views\Shared\_NavbarPartialCustomer.cshtml" />
+    <Content Include="Views\Shared\_NavbarPartialDefault.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
