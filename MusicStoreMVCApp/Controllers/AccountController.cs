@@ -15,6 +15,8 @@ namespace MusicStoreMVCApp.Controllers
 {
     public class AccountController : Controller
     {
+        MusicStoreAppEntities db = new MusicStoreAppEntities();
+
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -104,7 +106,6 @@ namespace MusicStoreMVCApp.Controllers
                 }
                 else if(model.UserType == UserType.Seller)
                 {
-                    var db = new MusicStoreAppEntities();
                     ApprovalList approval = new ApprovalList() { SellerFname = model.Firstname, SellerLname = model.Lastname, Address = model.Address, PhoneNumber = model.PhoneNumber };
                     db.ApprovalLists.Add(approval);
                     db.SaveChanges();
