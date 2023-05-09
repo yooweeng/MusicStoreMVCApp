@@ -14,7 +14,25 @@
             @Html.ActionLink("LetsMovie", "Index", "Home", new { area = "" }, new { @class = "navbar-brand text-white" })
             <div class="navbar-collapse collapse">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link text-white" })</li>
+                    @if (Request.IsAuthenticated)
+                    {
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">@Html.ActionLink("Home", "Index", "Admin", new { area = "" }, new { @class = "nav-link text-white" })</li>
+                        }
+                        else if (User.IsInRole("Seller"))
+                        {
+                            <li class="nav-item">@Html.ActionLink("Home", "Index", "Seller", new { area = "" }, new { @class = "nav-link text-white" })</li>
+                        }
+                        else if (User.IsInRole("Customer"))
+                        {
+                            <li class="nav-item">@Html.ActionLink("Home", "Index", "Customer", new { area = "" }, new { @class = "nav-link text-white" })</li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link text-white" })</li>
+                    }
                     <li class="nav-item">@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link text-white" })</li>
                 </ul>
                 @Html.Partial("_LoginPartial")

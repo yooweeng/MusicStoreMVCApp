@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace MusicStoreMVCApp.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         MusicStoreAppEntities db = new MusicStoreAppEntities();

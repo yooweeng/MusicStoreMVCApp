@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace MusicStoreMVCApp.Controllers
 {
+    [Authorize(Roles = "Seller")]
     public class SellerController : Controller
     {
         // GET: Seller
