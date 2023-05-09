@@ -24,7 +24,8 @@ namespace MusicStoreMVCApp
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.min.css",
-                      "~/Content/Site.css"));
+                      "~/Content/Site.css",
+                      "~/Content/fontawesome-free-6.4.0-web/css/all.css"));
         }
     }
 }
