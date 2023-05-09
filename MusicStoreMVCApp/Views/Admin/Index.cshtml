@@ -4,50 +4,85 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Seller list for approval</h2>
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            filterListByCriteria(-1);
+        });
 
-<table class="table">
-    <tr>
-        <th>
-            seller firstname
-        </th>
-        <th>
-            Seller Last Name
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th></th>
-    </tr>
+        function filterListByCriteria(filterCriteria) {
+            const approvalList = @Html.Raw(Json.Encode(Model));
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.SellerFname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SellerLname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.ActionLink("Approve", "Approve", new { id=item.Id }) |
-            @Html.ActionLink("Reject", "Reject", new { id=item.Id })
-        </td>
-    </tr>
+            let filteredList = approvalList.filter(item => { return item.Status === filterCriteria });
+            if (filterCriteria === -1) {
+                filteredList = approvalList;
+            }
+
+            $('.filter-btn')
+                .removeClass('btn-dark')
+                .addClass('btn-secondary');
+            $('#button' + filterCriteria)
+                .removeClass('btn-secondary')
+                .addClass('btn-dark');
+            $('.list-item').remove();
+            filteredList.forEach(item => {
+                $('#listBody').append(
+                    '<tr class="list-item">' +
+                        '<td>' + item.SellerFname + '</td>' +
+                        '<td>' + item.SellerLname + '</td>' +
+                        '<td>' + item.Address + '</td>' +
+                        '<td>' + item.PhoneNumber + '</td>' +
+                        '<td>' + item.Status + '</td>' +
+                        '<td>' +
+                            '<a href="/Admin/Approve/' + item.Id + '">' +
+                                '<i class="fa-solid fa-circle-check fa-lg me-3" style="color: #00a83b;"></i>' +
+                            '</a>' +
+                            '<a href="/Admin/Reject/' + item.Id + '">' +
+                                '<i class="fa-sharp fa-solid fa-circle-xmark fa-lg" style="color: #e4255e;"></i>' +
+                            '</a>' +
+                        '</td>' +
+                    '</tr>'
+                );
+            })
+        }
+    </script>
 }
 
-</table>
+<div class="pt-5 px-5">
+    <h2 class="mb-4">Seller List for Approval</h2>
+    <div class="container mb-4 pb-4 mx-0">
+        <div class="row">
+            <button id="button-1" type="button" class="btn btn-secondary filter-btn col-1 me-3" onclick="filterListByCriteria(-1)">All</button>
+            <button id="button0" type="button" class="btn btn-secondary filter-btn col-1 me-3" onclick="filterListByCriteria(0)">Pending</button>
+            <button id="button1" type="button" class="btn btn-secondary filter-btn col-1 me-3" onclick="filterListByCriteria(1)">Approve</button>
+            <button id="button2" type="button" class="btn btn-secondary filter-btn col-1" onclick="filterListByCriteria(2)">Reject</button>
+        </div>
+    </div>
+
+    <table class="table table-striped border shadow">
+        <thead>
+            <tr>
+                <th>
+                    Seller Firstname
+                </th>
+                <th>
+                    Seller Lastname
+                </th>
+                <th>
+                    Address
+                </th>
+                <th>
+                    Phone Number
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody id="listBody" class="table-group-divider"></tbody>
+    </table>
+</div>

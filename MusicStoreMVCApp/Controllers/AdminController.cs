@@ -29,7 +29,7 @@ namespace MusicStoreMVCApp.Controllers
         public ActionResult Reject(int Id)
         {
             ApprovalList approvalItemById = db.ApprovalLists.SingleOrDefault(item => item.Id == Id);
-            approvalItemById.Status = 0;
+            approvalItemById.Status = 2;
             db.SaveChanges();
 
             return RedirectToAction("Index");
