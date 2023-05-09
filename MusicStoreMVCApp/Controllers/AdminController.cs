@@ -34,5 +34,20 @@ namespace MusicStoreMVCApp.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult AddCategory()
+        {
+            List<Genre> genres = db.Genres.ToList();
+            return View(genres);
+        }
+
+        [HttpPost]
+        public ActionResult Genre(string GenreType)
+        {
+            db.Genres.Add(new Genre() { GenreType = GenreType });
+            db.SaveChanges();
+
+            return RedirectToAction("AddCategory");
+        }
     }
 }
