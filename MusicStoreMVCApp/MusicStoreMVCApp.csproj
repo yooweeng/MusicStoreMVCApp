@@ -188,6 +188,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
+    <Compile Include="Models\SellerIndexViewModel.cs" />
     <Compile Include="Models\UserTypeModel.cs" />
     <Compile Include="Movie.cs">
       <DependentUpon>MusicStoreMVCAppEntities.tt</DependentUpon>
