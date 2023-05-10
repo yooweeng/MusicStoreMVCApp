@@ -35,21 +35,37 @@
                         '<td>' + item.PhoneNumber + '</td>' +
                         '<td>' + item.Status + '</td>' +
                         '<td>' +
-                            '<a href="/Admin/Approve/' + item.Id + '">' +
-                                '<i class="fa-solid fa-circle-check fa-lg me-3" style="color: #00a83b;"></i>' +
-                            '</a>' +
-                            '<a href="/Admin/Reject/' + item.Id + '">' +
-                                '<i class="fa-sharp fa-solid fa-circle-xmark fa-lg" style="color: #e4255e;"></i>' +
-                            '</a>' +
+                            '<button class="btn btn-success rounded-circle me-3" type="button" data-bs-toggle="modal" data-bs-target="#confirmActionModal" onclick="changeActionButtonInModal(`Approve`,'+item.Id+')">' +
+                                '<i class="fa-solid fa-check" style="color: #ffffff;"></i>' +
+                            '</button>' +
+                            '<button class="btn btn-danger rounded-circle" data-bs-toggle="modal" data-bs-target="#confirmActionModal" onclick="changeActionButtonInModal(`Reject`,' + item.Id + ')">' +
+                                '<i class="fa-sharp fa-solid fa-xmark" style="color: #ffffff;"></i>' +
+                            '</button>' +
                         '</td>' +
                     '</tr>'
                 );
             })
         }
+        
+        function changeActionButtonInModal(action, id) {
+            $('#actionButton').html(action)
+                .attr('href', '/Admin/' + action + '/' + id)
+
+            if (action === 'Approve') {
+                $('#actionButton').html(action)
+                    .addClass('btn-success')
+                    .removeClass('btn-danger')
+            }
+            else if (action === 'Reject') {
+                $('#actionButton').html(action)
+                    .addClass('btn-danger')
+                    .removeClass('btn-success')
+            }
+        }
     </script>
 }
 
-<div class="pt-5 px-5">
+<div class="p-5">
     <h2 class="mb-4">Seller List for Approval</h2>
     <div class="container mb-4 pb-4 mx-0">
         <div class="row">
@@ -85,4 +101,23 @@
         </thead>
         <tbody id="listBody" class="table-group-divider"></tbody>
     </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="confirmActionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm your action</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to proceed with current action? This action cannot be undone.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <a id="actionButton" class="btn">(Action)</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
