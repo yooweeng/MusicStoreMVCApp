@@ -55,10 +55,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MovieTitle" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+          <Property Name="MovieTitle" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="Price" Type="float" Nullable="false" />
-          <Property Name="ImageUrl" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="ReleasedYear" Type="int" Nullable="false" />
           <Property Name="SellerId" Type="int" Nullable="false" />
         </EntityType>
@@ -372,10 +372,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MovieTitle" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MovieTitle" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="Double" Nullable="false" />
-          <Property Name="ImageUrl" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ImageUrl" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="ReleasedYear" Type="Int32" Nullable="false" />
           <Property Name="SellerId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Carts" Relationship="MusicStoreAppModel.FK_CartMovie_Movie" FromRole="Movie" ToRole="Cart" />
