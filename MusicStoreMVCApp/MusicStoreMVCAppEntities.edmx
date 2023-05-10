@@ -58,7 +58,6 @@
           <Property Name="MovieTitle" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="200" />
           <Property Name="Price" Type="float" Nullable="false" />
-          <Property Name="GenreId" Type="int" Nullable="false" />
           <Property Name="ImageUrl" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="ReleasedYear" Type="int" Nullable="false" />
           <Property Name="SellerId" Type="int" Nullable="false" />
@@ -70,6 +69,14 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MovieId" Type="int" Nullable="false" />
           <Property Name="ActorId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MovieGenre">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MovieId" Type="int" Nullable="false" />
+          <Property Name="GenreId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -124,18 +131,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Movie_Genre">
-          <End Role="Genre" Type="Self.Genre" Multiplicity="1" />
-          <End Role="Movie" Type="Self.Movie" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Genre">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Movie">
-              <PropertyRef Name="GenreId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Movie_Seller">
           <End Role="Seller" Type="Self.Seller" Multiplicity="1" />
           <End Role="Movie" Type="Self.Movie" Multiplicity="*" />
@@ -172,6 +167,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MovieGenre_Genre">
+          <End Role="Genre" Type="Self.Genre" Multiplicity="1" />
+          <End Role="MovieGenre" Type="Self.MovieGenre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genre">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MovieGenre">
+              <PropertyRef Name="GenreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MovieGenre_Movie">
+          <End Role="Movie" Type="Self.Movie" Multiplicity="1" />
+          <End Role="MovieGenre" Type="Self.MovieGenre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MovieGenre">
+              <PropertyRef Name="MovieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_OrderMovie_Movie">
           <End Role="Movie" Type="Self.Movie" Multiplicity="1" />
           <End Role="OrderMovie" Type="Self.OrderMovie" Multiplicity="*" />
@@ -204,6 +223,7 @@
           <EntitySet Name="Genre" EntityType="Self.Genre" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Movie" EntityType="Self.Movie" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MovieActor" EntityType="Self.MovieActor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MovieGenre" EntityType="Self.MovieGenre" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderMovie" EntityType="Self.OrderMovie" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Seller" EntityType="Self.Seller" Schema="dbo" store:Type="Tables" />
@@ -214,10 +234,6 @@
           <AssociationSet Name="FK_CartMovie_Movie" Association="Self.FK_CartMovie_Movie">
             <End Role="Movie" EntitySet="Movie" />
             <End Role="Cart" EntitySet="Cart" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Movie_Genre" Association="Self.FK_Movie_Genre">
-            <End Role="Genre" EntitySet="Genre" />
-            <End Role="Movie" EntitySet="Movie" />
           </AssociationSet>
           <AssociationSet Name="FK_Movie_Seller" Association="Self.FK_Movie_Seller">
             <End Role="Seller" EntitySet="Seller" />
@@ -230,6 +246,14 @@
           <AssociationSet Name="FK_MovieActor_Movie" Association="Self.FK_MovieActor_Movie">
             <End Role="Movie" EntitySet="Movie" />
             <End Role="MovieActor" EntitySet="MovieActor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MovieGenre_Genre" Association="Self.FK_MovieGenre_Genre">
+            <End Role="Genre" EntitySet="Genre" />
+            <End Role="MovieGenre" EntitySet="MovieGenre" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MovieGenre_Movie" Association="Self.FK_MovieGenre_Movie">
+            <End Role="Movie" EntitySet="Movie" />
+            <End Role="MovieGenre" EntitySet="MovieGenre" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderMovie_Movie" Association="Self.FK_OrderMovie_Movie">
             <End Role="Movie" EntitySet="Movie" />
@@ -252,6 +276,7 @@
           <EntitySet Name="Genres" EntityType="MusicStoreAppModel.Genre" />
           <EntitySet Name="Movies" EntityType="MusicStoreAppModel.Movie" />
           <EntitySet Name="MovieActors" EntityType="MusicStoreAppModel.MovieActor" />
+          <EntitySet Name="MovieGenres" EntityType="MusicStoreAppModel.MovieGenre" />
           <EntitySet Name="Orders" EntityType="MusicStoreAppModel.Order" />
           <EntitySet Name="OrderMovies" EntityType="MusicStoreAppModel.OrderMovie" />
           <EntitySet Name="Sellers" EntityType="MusicStoreAppModel.Seller" />
@@ -267,9 +292,9 @@
             <End Role="Movie" EntitySet="Movies" />
             <End Role="Cart" EntitySet="Carts" />
           </AssociationSet>
-          <AssociationSet Name="FK_Movie_Genre" Association="MusicStoreAppModel.FK_Movie_Genre">
+          <AssociationSet Name="FK_MovieGenre_Genre" Association="MusicStoreAppModel.FK_MovieGenre_Genre">
             <End Role="Genre" EntitySet="Genres" />
-            <End Role="Movie" EntitySet="Movies" />
+            <End Role="MovieGenre" EntitySet="MovieGenres" />
           </AssociationSet>
           <AssociationSet Name="FK_Movie_Seller" Association="MusicStoreAppModel.FK_Movie_Seller">
             <End Role="Seller" EntitySet="Sellers" />
@@ -278,6 +303,10 @@
           <AssociationSet Name="FK_MovieActor_Movie" Association="MusicStoreAppModel.FK_MovieActor_Movie">
             <End Role="Movie" EntitySet="Movies" />
             <End Role="MovieActor" EntitySet="MovieActors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MovieGenre_Movie" Association="MusicStoreAppModel.FK_MovieGenre_Movie">
+            <End Role="Movie" EntitySet="Movies" />
+            <End Role="MovieGenre" EntitySet="MovieGenres" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderMovie_Movie" Association="MusicStoreAppModel.FK_OrderMovie_Movie">
             <End Role="Movie" EntitySet="Movies" />
@@ -334,9 +363,9 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GenreType" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Movies" Relationship="MusicStoreAppModel.FK_Movie_Genre" FromRole="Genre" ToRole="Movie" />
+          <NavigationProperty Name="MovieGenres" Relationship="MusicStoreAppModel.FK_MovieGenre_Genre" FromRole="Genre" ToRole="MovieGenre" />
         </EntityType>
         <EntityType Name="Movie">
           <Key>
@@ -346,14 +375,13 @@
           <Property Name="MovieTitle" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="Double" Nullable="false" />
-          <Property Name="GenreId" Type="Int32" Nullable="false" />
           <Property Name="ImageUrl" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="ReleasedYear" Type="Int32" Nullable="false" />
           <Property Name="SellerId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Carts" Relationship="MusicStoreAppModel.FK_CartMovie_Movie" FromRole="Movie" ToRole="Cart" />
-          <NavigationProperty Name="Genre" Relationship="MusicStoreAppModel.FK_Movie_Genre" FromRole="Movie" ToRole="Genre" />
           <NavigationProperty Name="Seller" Relationship="MusicStoreAppModel.FK_Movie_Seller" FromRole="Movie" ToRole="Seller" />
           <NavigationProperty Name="MovieActors" Relationship="MusicStoreAppModel.FK_MovieActor_Movie" FromRole="Movie" ToRole="MovieActor" />
+          <NavigationProperty Name="MovieGenres" Relationship="MusicStoreAppModel.FK_MovieGenre_Movie" FromRole="Movie" ToRole="MovieGenre" />
           <NavigationProperty Name="OrderMovies" Relationship="MusicStoreAppModel.FK_OrderMovie_Movie" FromRole="Movie" ToRole="OrderMovie" />
         </EntityType>
         <EntityType Name="MovieActor">
@@ -365,6 +393,16 @@
           <Property Name="ActorId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Actor" Relationship="MusicStoreAppModel.FK_MovieActor_Actor" FromRole="MovieActor" ToRole="Actor" />
           <NavigationProperty Name="Movie" Relationship="MusicStoreAppModel.FK_MovieActor_Movie" FromRole="MovieActor" ToRole="Movie" />
+        </EntityType>
+        <EntityType Name="MovieGenre">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MovieId" Type="Int32" Nullable="false" />
+          <Property Name="GenreId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Genre" Relationship="MusicStoreAppModel.FK_MovieGenre_Genre" FromRole="MovieGenre" ToRole="Genre" />
+          <NavigationProperty Name="Movie" Relationship="MusicStoreAppModel.FK_MovieGenre_Movie" FromRole="MovieGenre" ToRole="Movie" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -435,14 +473,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Movie_Genre">
+        <Association Name="FK_MovieGenre_Genre">
           <End Type="MusicStoreAppModel.Genre" Role="Genre" Multiplicity="1" />
-          <End Type="MusicStoreAppModel.Movie" Role="Movie" Multiplicity="*" />
+          <End Type="MusicStoreAppModel.MovieGenre" Role="MovieGenre" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Genre">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Movie">
+            <Dependent Role="MovieGenre">
               <PropertyRef Name="GenreId" />
             </Dependent>
           </ReferentialConstraint>
@@ -471,6 +509,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MovieGenre_Movie">
+          <End Type="MusicStoreAppModel.Movie" Role="Movie" Multiplicity="1" />
+          <End Type="MusicStoreAppModel.MovieGenre" Role="MovieGenre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MovieGenre">
+              <PropertyRef Name="MovieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_OrderMovie_Movie">
           <End Type="MusicStoreAppModel.Movie" Role="Movie" Multiplicity="1" />
           <End Type="MusicStoreAppModel.OrderMovie" Role="OrderMovie" Multiplicity="*" />
@@ -495,7 +545,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -557,7 +607,6 @@
                 <ScalarProperty Name="SellerId" ColumnName="SellerId" />
                 <ScalarProperty Name="ReleasedYear" ColumnName="ReleasedYear" />
                 <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
-                <ScalarProperty Name="GenreId" ColumnName="GenreId" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="MovieTitle" ColumnName="MovieTitle" />
@@ -569,6 +618,15 @@
             <EntityTypeMapping TypeName="MusicStoreAppModel.MovieActor">
               <MappingFragment StoreEntitySet="MovieActor">
                 <ScalarProperty Name="ActorId" ColumnName="ActorId" />
+                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MovieGenres">
+            <EntityTypeMapping TypeName="MusicStoreAppModel.MovieGenre">
+              <MappingFragment StoreEntitySet="MovieGenre">
+                <ScalarProperty Name="GenreId" ColumnName="GenreId" />
                 <ScalarProperty Name="MovieId" ColumnName="MovieId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

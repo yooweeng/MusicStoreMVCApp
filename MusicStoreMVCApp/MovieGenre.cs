@@ -12,18 +12,13 @@ namespace MusicStoreMVCApp
     using System;
     using System.Collections.Generic;
     
-    public partial class Genre
+    public partial class MovieGenre
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Genre()
-        {
-            this.MovieGenres = new HashSet<MovieGenre>();
-        }
-    
         public int Id { get; set; }
-        public string GenreType { get; set; }
+        public int MovieId { get; set; }
+        public int GenreId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MovieGenre> MovieGenres { get; set; }
+        public virtual Genre Genre { get; set; }
+        public virtual Movie Movie { get; set; }
     }
 }

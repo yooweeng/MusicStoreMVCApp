@@ -19,6 +19,7 @@ namespace MusicStoreMVCApp
         {
             this.Carts = new HashSet<Cart>();
             this.MovieActors = new HashSet<MovieActor>();
+            this.MovieGenres = new HashSet<MovieGenre>();
             this.OrderMovies = new HashSet<OrderMovie>();
         }
     
@@ -26,17 +27,17 @@ namespace MusicStoreMVCApp
         public string MovieTitle { get; set; }
         public string Description { get; set; }
         public double Price { get; set; }
-        public int GenreId { get; set; }
         public string ImageUrl { get; set; }
         public int ReleasedYear { get; set; }
         public int SellerId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart> Carts { get; set; }
-        public virtual Genre Genre { get; set; }
         public virtual Seller Seller { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MovieActor> MovieActors { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MovieGenre> MovieGenres { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderMovie> OrderMovies { get; set; }
     }

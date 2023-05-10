@@ -196,6 +196,9 @@
     <Compile Include="MovieActor.cs">
       <DependentUpon>MusicStoreMVCAppEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="MovieGenre.cs">
+      <DependentUpon>MusicStoreMVCAppEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="MusicStoreMVCAppEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2299,6 +2302,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="MovieCover\1\Image_created_with_a_mobile_phone.png" />
     <Content Include="MusicStoreMVCAppEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>MusicStoreMVCAppEntities.edmx</DependentUpon>
@@ -2430,7 +2434,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Seller\Index.cshtml" />
+    <Content Include="Views\Seller\AddMovie.cshtml" />
     <Content Include="Views\Account\Error.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
@@ -2440,6 +2444,7 @@
     <Content Include="Views\Shared\_NavbarPartialCustomer.cshtml" />
     <Content Include="Views\Shared\_NavbarPartialDefault.cshtml" />
     <Content Include="Views\Admin\AddCategory.cshtml" />
+    <Content Include="Views\Seller\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
