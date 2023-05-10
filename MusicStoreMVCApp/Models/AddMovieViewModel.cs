@@ -8,6 +8,6 @@ namespace MusicStoreMVCApp.Models
     public class AddMovieViewModel
     {
         public Movie Movie { get; set; }
-        public IEnumerable<Genre> Genres { get; set; }
+        public List<GenreSelectedModel> GenreSelectedList { get; set; } 
     }
 }

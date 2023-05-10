@@ -13,7 +13,7 @@
         <h3>Add Movie / Product</h3>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="container mb-3 pt-4 mx-0">
+        <div class="container-fluid mb-3 pt-4">
             <div class="form-group row mb-3">
                 <div class="col-4">
                     @Html.LabelFor(m => m.Movie.MovieTitle, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -45,12 +45,13 @@
                 @Html.Label("Genre", htmlAttributes: new { @class = "control-label col-md-2" })
 
             </div>
-            <div class="form-group row mb-3">
-                @foreach (var genre in Model.Genres)
+            <div class="form-group row mb-3 px-3">
+                @for (int i = 0; i < Model.GenreSelectedList.Count; i++)
                 {
-                    <div class="col-2">
-                        @Html.CheckBox(genre.GenreType, new { @class = "btn-check" })
-                        @Html.Label(genre.GenreType, new { @class = "btn btn-primary" })
+                    <div class="col-2 form-check">
+                        @Html.CheckBoxFor(m => Model.GenreSelectedList[i].IsSelected, new { @class = "form-check-input" })
+                        @Html.Label(Model.GenreSelectedList[i].Genre.GenreType, new { @class = "form-check-label" })
+                        @Html.HiddenFor(m => Model.GenreSelectedList[i].Genre.Id)
                     </div>
                 }
             </div>
