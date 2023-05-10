@@ -1,0 +1,79 @@
+﻿@model MusicStoreMVCApp.Models.SellerIndexViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="pt-5 px-5">
+   @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h3>Add Movie / Product</h3>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="container mb-3 pt-4 mx-0">
+            <div class="form-group row mb-3">
+                <div class="col-4">
+                    @Html.LabelFor(model => model.Movie.MovieTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+                <div class="col-8">
+                    @Html.EditorFor(model => model.Movie.MovieTitle, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Movie.MovieTitle, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row mb-3">
+                <div class="col-4">
+                    @Html.LabelFor(model => model.Movie.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+                <div class="col-8">
+                    @Html.EditorFor(model => model.Movie.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Movie.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row mb-3">
+                <div class="col-4">
+                    @Html.LabelFor(model => model.Movie.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+                <div class="col-8">
+                    @Html.EditorFor(model => model.Movie.Price, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Movie.Price, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row mb-3">
+                <div class="col-4">
+                    @Html.Label("Genre", htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+                <div class="col-8">
+                    @Html.DropDownList("Genre", new SelectList(Model.GenreTypes), new { @class = "form-select" })
+                </div>
+            </div>
+            <div class="form-group row mb-3">
+                <div class="col-4">
+                    @Html.LabelFor(model => model.Movie.ImageUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+                <div class="col-8">
+                    @Html.EditorFor(model => model.Movie.ImageUrl, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Movie.ImageUrl, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    @Html.LabelFor(model => model.Movie.ReleasedYear, htmlAttributes: new { @class = "control-label col-md-2" })
+                </div>
+                <div class="col-8">
+                    @Html.EditorFor(model => model.Movie.ReleasedYear, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Movie.ReleasedYear, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group mt-4">
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" style="align-self: center;" value="Add Product" />
+            </div>
+        </div>
+    </div>
+    }
+</div>
