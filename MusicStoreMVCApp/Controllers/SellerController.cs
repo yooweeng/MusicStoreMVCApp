@@ -24,18 +24,13 @@ namespace MusicStoreMVCApp.Controllers
         public ActionResult AddMovie()
         {
             List<Genre> genres = db.Genres.ToList();
-            List<string> genreTypes = new List<string>();
-            foreach(Genre genre in genres)
-            {
-                genreTypes.Add(genre.GenreType);
-            }
-            SellerIndexViewModel model = new SellerIndexViewModel() { GenreTypes = genreTypes };
+            AddMovieViewModel model = new AddMovieViewModel() { Genres = genres };
 
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult AddMovie(Movie movie, string genre)
+        public ActionResult AddMovie(Movie movie)
         {
             // insert into Movie table
             var insertedMovie = db.Movies.Add(new Movie()
@@ -47,7 +42,7 @@ namespace MusicStoreMVCApp.Controllers
                 ReleasedYear = movie.ReleasedYear,
                 SellerId = 1
             });
-            db.SaveChanges();
+            //db.SaveChanges();
 
             // insert into MovieGenre table
             //db.MovieGenres.Add(new MovieGenre()
