@@ -2323,6 +2323,8 @@
     <Content Include="Library\chosen_v1.8.7\index.html" />
     <Content Include="Library\chosen_v1.8.7\index.proto.html" />
     <Content Include="Library\chosen_v1.8.7\options.html" />
+    <Content Include="Library\dropzone%405\dropzone.min.css" />
+    <Content Include="Library\dropzone%405\dropzone.min.js" />
     <Content Include="MovieCover\1\Image_created_with_a_mobile_phone.png" />
     <Content Include="MusicStoreMVCAppEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

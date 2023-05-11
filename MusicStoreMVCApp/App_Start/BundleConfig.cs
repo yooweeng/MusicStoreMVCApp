@@ -32,6 +32,12 @@ namespace MusicStoreMVCApp
 
             bundles.Add(new StyleBundle("~/bundles/chosencss").Include(
                       "~/Library/chosen_v1.8.7/chosen.min.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/dropzonejs").Include(
+                      "~/Library/dropzone@5/dropzone.min.js"));
+
+            bundles.Add(new StyleBundle("~/bundles/dropzonecss").Include(
+                      "~/Library/dropzone@5/dropzone.min.css"));
         }
     }
 }
