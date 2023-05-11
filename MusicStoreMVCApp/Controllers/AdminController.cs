@@ -17,22 +17,29 @@ namespace MusicStoreMVCApp.Controllers
             return View(db.ApprovalLists.ToList());
         }
 
-        public ActionResult Approve(int Id)
+        public JsonResult Approve(int Id)
         {
             ApprovalList approvalItemById = db.ApprovalLists.SingleOrDefault(item => item.Id == Id);
             approvalItemById.Status = 1;
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return Json(new { 
+                Status = true,
+                StatusMessage = "Successfully updated the status of selected seller account to approve"
+            });
         }
 
-        public ActionResult Reject(int Id)
+        public JsonResult Reject(int Id)
         {
             ApprovalList approvalItemById = db.ApprovalLists.SingleOrDefault(item => item.Id == Id);
             approvalItemById.Status = 2;
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return Json(new
+            {
+                Status = true,
+                StatusMessage = "Successfully updated the status of selected seller account to reject"
+            });
         }
 
         public ActionResult AddCategory()
