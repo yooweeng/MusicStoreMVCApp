@@ -7,13 +7,14 @@
 @section Scripts
 {
     <script>
+        const approvalList = @Html.Raw(Json.Encode(Model));
+        const statusMapping = ['Pending', 'Approve', 'Reject'];
+
         $(document).ready(function () {
             filterListByCriteria(-1);
         });
 
         function filterListByCriteria(filterCriteria) {
-            const approvalList = @Html.Raw(Json.Encode(Model));
-
             let filteredList = approvalList.filter(item => { return item.Status === filterCriteria });
             if (filterCriteria === -1) {
                 filteredList = approvalList;
@@ -26,38 +27,55 @@
                 .removeClass('btn-secondary')
                 .addClass('btn-dark');
             $('.list-item').remove();
-            filteredList.forEach(item => {
+            for (let i = 0; i < filteredList.length; i++) {
                 $('#listBody').append(
                     '<tr class="list-item">' +
-                        '<td>' + item.SellerFname + '</td>' +
-                        '<td>' + item.SellerLname + '</td>' +
-                        '<td>' + item.Address + '</td>' +
-                        '<td>' + item.PhoneNumber + '</td>' +
-                        '<td>' + item.Status + '</td>' +
-                        '<td>' +
-                            '<button class="btn btn-success rounded-circle me-3" type="button" data-bs-toggle="modal" data-bs-target="#confirmActionModal" onclick="changeActionButtonInModal(`Approve`,'+item.Id+')">' +
-                                '<i class="fa-solid fa-check" style="color: #ffffff;"></i>' +
-                            '</button>' +
-                            '<button class="btn btn-danger rounded-circle" data-bs-toggle="modal" data-bs-target="#confirmActionModal" onclick="changeActionButtonInModal(`Reject`,' + item.Id + ')">' +
-                                '<i class="fa-sharp fa-solid fa-xmark" style="color: #ffffff;"></i>' +
-                            '</button>' +
-                        '</td>' +
+                    '<td>' + filteredList[i].SellerFname + '</td>' +
+                    '<td>' + filteredList[i].SellerLname + '</td>' +
+                    '<td>' + filteredList[i].Address + '</td>' +
+                    '<td>' + filteredList[i].PhoneNumber + '</td>' +
+                    '<td>' + statusMapping[filteredList[i].Status] + '</td>' +
+                    '<td>' +
+                    '<button class="btn btn-success rounded-circle me-3" type="button" data-bs-toggle="modal" data-bs-target="#confirmActionModal" onclick="changeActionButtonInModal(`Approve`,' + filteredList[i].Id + ', ' + filterCriteria + ')">' +
+                    '<i class="fa-solid fa-check" style="color: #ffffff;"></i>' +
+                    '</button>' +
+                    '<button class="btn btn-danger rounded-circle" data-bs-toggle="modal" data-bs-target="#confirmActionModal" onclick="changeActionButtonInModal(`Reject`,' + filteredList[i].Id + ', ' + filterCriteria + ')">' +
+                    '<i class="fa-sharp fa-solid fa-xmark" style="color: #ffffff;"></i>' +
+                    '</button>' +
+                    '</td>' +
                     '</tr>'
                 );
-            })
+            }
         }
-        
-        function changeActionButtonInModal(action, id) {
-            $('#actionButton').html(action)
-                .attr('href', '/Admin/' + action + '/' + id)
+
+        function changeActionButtonInModal(action, id, filteredCriteria) {
+            $('#actionButton')
+                .html(action)
+                .off().on('click', () => {
+                    $.ajax({
+                        url: '/Admin/' + action + '/' + id,
+                        type: 'POST',
+                        success: function (data) {
+                            approvalList.forEach(item => {
+                                if (item.Id == id) {
+                                    item.Status = (action === 'Approve') ? 1 : 2;
+                                }
+                            });
+                            filterListByCriteria(filteredCriteria);
+                        },
+                        error: function (error) {
+                            console.error(error);
+                        }
+                    })
+                })
 
             if (action === 'Approve') {
-                $('#actionButton').html(action)
+                $('#actionButton')
                     .addClass('btn-success')
                     .removeClass('btn-danger')
             }
             else if (action === 'Reject') {
-                $('#actionButton').html(action)
+                $('#actionButton')
                     .addClass('btn-danger')
                     .removeClass('btn-success')
             }
@@ -103,11 +121,11 @@
     </table>
 
     <!-- Modal -->
-    <div class="modal fade" id="confirmActionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="confirmActionModal" tabindex="-1" aria-labelledby="confirmActionModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm your action</h1>
+                    <h1 class="modal-title fs-5" id="confirmActionModal">Confirm your action</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -115,7 +133,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <a id="actionButton" class="btn">(Action)</a>
+                    <button id="actionButton" class="btn" data-bs-dismiss="modal">(Action)</button>
                 </div>
             </div>
         </div>
