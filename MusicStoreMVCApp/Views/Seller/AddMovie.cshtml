@@ -75,12 +75,33 @@
             </div>
         </div>
     }
+<form action="/Seller/UploadMovieCover"
+      class="dropzone"
+      method="post"
+      id="fileDropzone">
+    <button type="submit">Submit data and files!</button>
+</form>
 </div>
 
 @section Scripts {
     <script type="text/javascript">
+        Dropzone.options.fileDropzone = {
+            autoProcessQueue: false,
+            maxFiles: 1,
+
+            init: function () {
+                var myDropzone = this;
+
+                this.element.querySelector("button[type=submit]").addEventListener("click", function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    myDropzone.processQueue();
+                });
+            }
+        };
+
         $(document).ready(function () {
             $("select").chosen();
-        })
+        });
     </script>
 }

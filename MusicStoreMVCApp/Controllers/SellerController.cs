@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -70,6 +71,30 @@ namespace MusicStoreMVCApp.Controllers
             //db.SaveChanges();
 
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public void UploadMovieCover(HttpPostedFileBase file)
+        {
+            Debug.WriteLine("here");
+            if(file != null && file.ContentLength > 0)
+            {
+                try
+                {
+                    Debug.WriteLine("inside try here");
+                    string path = Path.Combine(Server.MapPath("~/MovieCover"),
+                                               Path.GetFileName(file.FileName));
+                    file.SaveAs(path);
+                }
+                catch (Exception ex)
+                { Debug.WriteLine("inside exception else"); }
+            }
+            else
+            {
+
+                Debug.WriteLine("inside else");
+            }
+            Debug.WriteLine("after file here");
         }
     }
 }
