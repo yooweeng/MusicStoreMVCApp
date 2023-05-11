@@ -30,21 +30,24 @@
             for (let i = 0; i < filteredList.length; i++) {
                 $('#listBody').append(
                     '<tr class="list-item">' +
-                    '<td>' + filteredList[i].SellerFname + '</td>' +
-                    '<td>' + filteredList[i].SellerLname + '</td>' +
-                    '<td>' + filteredList[i].Address + '</td>' +
-                    '<td>' + filteredList[i].PhoneNumber + '</td>' +
-                    '<td>' + statusMapping[filteredList[i].Status] + '</td>' +
-                    '<td>' +
-                    '<button class="btn btn-success rounded-circle me-3" type="button" data-bs-toggle="modal" data-bs-target="#confirmActionModal" onclick="changeActionButtonInModal(`Approve`,' + filteredList[i].Id + ', ' + filterCriteria + ')">' +
-                    '<i class="fa-solid fa-check" style="color: #ffffff;"></i>' +
-                    '</button>' +
-                    '<button class="btn btn-danger rounded-circle" data-bs-toggle="modal" data-bs-target="#confirmActionModal" onclick="changeActionButtonInModal(`Reject`,' + filteredList[i].Id + ', ' + filterCriteria + ')">' +
-                    '<i class="fa-sharp fa-solid fa-xmark" style="color: #ffffff;"></i>' +
-                    '</button>' +
-                    '</td>' +
+                        '<td>' + filteredList[i].SellerFname + '</td>' +
+                        '<td>' + filteredList[i].SellerLname + '</td>' +
+                        '<td>' + filteredList[i].Address + '</td>' +
+                        '<td>' + filteredList[i].PhoneNumber + '</td>' +
+                        '<td>' + statusMapping[filteredList[i].Status] + '</td>' +
+                        '<td id="listItemAction' + i +'"></td>' +
                     '</tr>'
                 );
+                if (filterCriteria === 0) {
+                    $('#listItemAction'+i).append(
+                        '<button class="btn btn-success btn-sm rounded-circle me-3" type="button" data-bs-toggle="modal" data-bs-target="#confirmActionModal" onclick="changeActionButtonInModal(`Approve`,' + filteredList[i].Id + ', ' + filterCriteria + ')">' +
+                            '<i class="fa-solid fa-check" style="color: #ffffff;"></i>' +
+                        '</button>' +
+                        '<button class="btn btn-danger btn-sm rounded-circle" data-bs-toggle="modal" data-bs-target="#confirmActionModal" onclick="changeActionButtonInModal(`Reject`,' + filteredList[i].Id + ', ' + filterCriteria + ')">' +
+                            '<i class="fa-sharp fa-solid fa-xmark" style="color: #ffffff;"></i>' +
+                        '</button>'
+                    )
+                }
             }
         }
 
