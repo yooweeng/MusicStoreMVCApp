@@ -38,12 +38,21 @@ namespace MusicStoreMVCApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddMovie(Movie movie, List<string> genreTypes)
+        public ActionResult AddMovie(Movie movie, List<string> genreTypes, HttpPostedFileBase file)
         {
-            foreach(var item in genreTypes)
+            // save movie cover
+            if (file != null && file.ContentLength > 0)
             {
-                Debug.WriteLine("genreSelet"+item);
+                try
+                {
+                    string path = Path.Combine(Server.MapPath("~/MovieCover"),
+                                               Path.GetFileName(file.FileName));
+                    file.SaveAs(path);
+                }
+                catch (Exception ex)
+                { Debug.WriteLine(ex); }
             }
+
             // insert into Movie table
             //var insertedMovie = db.Movies.Add(new Movie()
             //{
@@ -58,7 +67,7 @@ namespace MusicStoreMVCApp.Controllers
 
             //foreach (GenreSelectedModel genreSelected in genreSelectedList)
             //{
-            //    if(genreSelected.IsSelected)
+            //    if (genreSelected.IsSelected)
             //    {
             //        // insert into MovieGenre table
             //        db.MovieGenres.Add(new MovieGenre()
@@ -71,30 +80,6 @@ namespace MusicStoreMVCApp.Controllers
             //db.SaveChanges();
 
             return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        public void UploadMovieCover(HttpPostedFileBase file)
-        {
-            Debug.WriteLine("here");
-            if(file != null && file.ContentLength > 0)
-            {
-                try
-                {
-                    Debug.WriteLine("inside try here");
-                    string path = Path.Combine(Server.MapPath("~/MovieCover"),
-                                               Path.GetFileName(file.FileName));
-                    file.SaveAs(path);
-                }
-                catch (Exception ex)
-                { Debug.WriteLine("inside exception else"); }
-            }
-            else
-            {
-
-                Debug.WriteLine("inside else");
-            }
-            Debug.WriteLine("after file here");
         }
     }
 }
