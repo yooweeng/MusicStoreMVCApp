@@ -2303,6 +2303,27 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Library\chosen_v1.8.7\chosen-sprite%402x.png" />
+    <Content Include="Library\chosen_v1.8.7\chosen-sprite.png" />
+    <Content Include="Library\chosen_v1.8.7\chosen.css" />
+    <Content Include="Library\chosen_v1.8.7\chosen.jquery.js" />
+    <Content Include="Library\chosen_v1.8.7\chosen.jquery.min.js" />
+    <Content Include="Library\chosen_v1.8.7\chosen.min.css" />
+    <Content Include="Library\chosen_v1.8.7\chosen.proto.js" />
+    <Content Include="Library\chosen_v1.8.7\chosen.proto.min.js" />
+    <Content Include="Library\chosen_v1.8.7\docsupport\chosen.png" />
+    <Content Include="Library\chosen_v1.8.7\docsupport\init.js" />
+    <Content Include="Library\chosen_v1.8.7\docsupport\init.proto.js" />
+    <Content Include="Library\chosen_v1.8.7\docsupport\jquery-1.12.4.min.js" />
+    <Content Include="Library\chosen_v1.8.7\docsupport\jquery-3.2.1.min.js" />
+    <Content Include="Library\chosen_v1.8.7\docsupport\oss-credit.png" />
+    <Content Include="Library\chosen_v1.8.7\docsupport\prism.css" />
+    <Content Include="Library\chosen_v1.8.7\docsupport\prism.js" />
+    <Content Include="Library\chosen_v1.8.7\docsupport\prototype-1.7.0.0.js" />
+    <Content Include="Library\chosen_v1.8.7\docsupport\style.css" />
+    <Content Include="Library\chosen_v1.8.7\index.html" />
+    <Content Include="Library\chosen_v1.8.7\index.proto.html" />
+    <Content Include="Library\chosen_v1.8.7\options.html" />
     <Content Include="MovieCover\1\Image_created_with_a_mobile_phone.png" />
     <Content Include="MusicStoreMVCAppEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -2402,6 +2423,8 @@
     <Content Include="Content\fontawesome-free-6.4.0-web\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\fontawesome-free-6.4.0-web\webfonts\fa-v4compatibility.ttf" />
     <Content Include="Content\fontawesome-free-6.4.0-web\webfonts\fa-v4compatibility.woff2" />
+    <Content Include="Library\chosen_v1.8.7\composer.json" />
+    <Content Include="Library\chosen_v1.8.7\LICENSE.md" />
     <None Include="Scripts\jquery-3.6.4.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.4.js" />
     <Content Include="Scripts\jquery-3.6.4.min.js" />

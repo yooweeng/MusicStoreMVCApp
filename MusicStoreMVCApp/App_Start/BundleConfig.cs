@@ -26,6 +26,12 @@ namespace MusicStoreMVCApp
                       "~/Content/bootstrap.min.css",
                       "~/Content/Site.css",
                       "~/Content/fontawesome-free-6.4.0-web/css/all.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/chosenjs").Include(
+                      "~/Library/chosen_v1.8.7/chosen.jquery.min.js"));
+
+            bundles.Add(new StyleBundle("~/bundles/chosencss").Include(
+                      "~/Library/chosen_v1.8.7/chosen.min.css"));
         }
     }
 }
