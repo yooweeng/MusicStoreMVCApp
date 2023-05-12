@@ -2325,7 +2325,8 @@
     <Content Include="Library\chosen_v1.8.7\options.html" />
     <Content Include="Library\dropzone%405\dropzone.min.css" />
     <Content Include="Library\dropzone%405\dropzone.min.js" />
-    <Content Include="MovieCover\1\Image_created_with_a_mobile_phone.png" />
+    <Content Include="MovieCover\14\AAAABVQQukGlwU2MPqnW_M5NZiZ-GPkMf7Z_dB-t3zxNOALbZ1QPJZA3zgB8tmKKG-CRM7XD_jULqFBuVBlARq2boU-0vfn6ZhDCSvI.jpg" />
+    <Content Include="MovieCover\2\AAAABZfGwED6kNpc0JrQ4HcjtjIqATWuaHmY6hw6Zx_lVjHdFKXndNNllUBGPfG_q2JXHKk17US8UP0QYGZjaA3c91PfiVj-uaofOIE.jpg" />
     <Content Include="MusicStoreMVCAppEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>MusicStoreMVCAppEntities.edmx</DependentUpon>

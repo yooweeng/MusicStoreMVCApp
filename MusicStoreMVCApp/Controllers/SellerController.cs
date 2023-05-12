@@ -25,61 +25,58 @@ namespace MusicStoreMVCApp.Controllers
         public ActionResult AddMovie()
         {
             List<Genre> genres = db.Genres.ToList();
-            List<string> genreTypes = new List<string>();
 
-            foreach(Genre genre in genres)
-            {
-                genreTypes.Add(genre.GenreType);
-            }
-
-            AddMovieViewModel model = new AddMovieViewModel() { GenreTypes = genreTypes };
+            AddMovieViewModel model = new AddMovieViewModel() { Genres = genres };
 
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult AddMovie(Movie movie, List<string> genreTypes, HttpPostedFileBase file)
+        public void AddMovie(Movie movie, List<int> selectedGenresId, HttpPostedFileBase file)
         {
+            string path = "";
+            // insert into Movie table without imageUrl
+            var insertedMovie = db.Movies.Add(new Movie()
+            {
+                MovieTitle = movie.MovieTitle,
+                Description = movie.Description,
+                Price = movie.Price,
+                ReleasedYear = movie.ReleasedYear,
+                SellerId = 1
+            });
+            db.SaveChanges();
+
             // save movie cover
             if (file != null && file.ContentLength > 0)
             {
                 try
                 {
-                    string path = Path.Combine(Server.MapPath("~/MovieCover"),
-                                               Path.GetFileName(file.FileName));
+                    path = Path.Combine(Server.MapPath("~/MovieCover/"),
+                                               insertedMovie.Id.ToString());
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    path = Path.Combine(path, Path.GetFileName(file.FileName));
                     file.SaveAs(path);
                 }
                 catch (Exception ex)
                 { Debug.WriteLine(ex); }
             }
 
-            // insert into Movie table
-            //var insertedMovie = db.Movies.Add(new Movie()
-            //{
-            //    MovieTitle = movie.MovieTitle,
-            //    Description = movie.Description,
-            //    Price = movie.Price,
-            //    ImageUrl = movie.ImageUrl,
-            //    ReleasedYear = movie.ReleasedYear,
-            //    SellerId = 1
-            //});
-            //db.SaveChanges();
+            // update movie for imageUrl
+            insertedMovie.ImageUrl = path;
 
-            //foreach (GenreSelectedModel genreSelected in genreSelectedList)
-            //{
-            //    if (genreSelected.IsSelected)
-            //    {
-            //        // insert into MovieGenre table
-            //        db.MovieGenres.Add(new MovieGenre()
-            //        {
-            //            MovieId = insertedMovie.Id,
-            //            GenreId = genreSelected.Genre.Id
-            //        });
-            //    }
-            //}
-            //db.SaveChanges();
-
-            return RedirectToAction("Index");
+            // insert into MovieGenre table
+            foreach (int genreId in selectedGenresId)
+            {
+                db.MovieGenres.Add(new MovieGenre()
+                {
+                    MovieId = insertedMovie.Id,
+                    GenreId = genreId
+                });
+            }
+            db.SaveChanges();
         }
     }
 }
