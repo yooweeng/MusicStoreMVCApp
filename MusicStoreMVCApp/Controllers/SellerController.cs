@@ -34,7 +34,9 @@ namespace MusicStoreMVCApp.Controllers
         [HttpPost]
         public JsonResult AddMovie(Movie movie, List<int> selectedGenresId, HttpPostedFileBase file)
         {
-            string path = "";
+            string folderDirectory = "/MovieCover";
+            string filename = "";
+
             // insert into Movie table without imageUrl
             var insertedMovie = db.Movies.Add(new Movie()
             {
@@ -51,13 +53,14 @@ namespace MusicStoreMVCApp.Controllers
             {
                 try
                 {
-                    path = Path.Combine(Server.MapPath("~/MovieCover/"),
+                    string path = Path.Combine(Server.MapPath("~" + folderDirectory + "/"),
                                                insertedMovie.Id.ToString());
                     if (!Directory.Exists(path))
                     {
                         Directory.CreateDirectory(path);
                     }
-                    path = Path.Combine(path, Path.GetFileName(file.FileName));
+                    filename = Path.GetFileName(file.FileName);
+                    path = Path.Combine(path, filename);
                     file.SaveAs(path);
                 }
                 catch (Exception ex)
@@ -65,7 +68,7 @@ namespace MusicStoreMVCApp.Controllers
             }
 
             // update movie for imageUrl
-            insertedMovie.ImageUrl = path;
+            insertedMovie.ImageUrl = folderDirectory + "/" + insertedMovie.Id.ToString() + "/" + filename;
 
             // insert into MovieGenre table
             foreach (int genreId in selectedGenresId)
