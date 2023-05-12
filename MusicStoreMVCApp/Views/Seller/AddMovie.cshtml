@@ -5,7 +5,7 @@
 }
 
 <div class="p-5">
-    @using (Html.BeginForm("AddMovie", "Seller", FormMethod.Post, new { @class = "dropzone", id = "fileDropzone" }))
+    @using (Html.BeginForm("Movie", "Seller", FormMethod.Post, new { @class = "dropzone", id = "fileDropzone" }))
     {
         @Html.AntiForgeryToken()
 

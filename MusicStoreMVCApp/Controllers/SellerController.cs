@@ -22,17 +22,8 @@ namespace MusicStoreMVCApp.Controllers
             return View(movies);
         }
 
-        public ActionResult AddMovie()
-        {
-            List<Genre> genres = db.Genres.ToList();
-
-            AddMovieViewModel model = new AddMovieViewModel() { Genres = genres };
-
-            return View(model);
-        }
-
         [HttpPost]
-        public JsonResult AddMovie(Movie movie, List<int> selectedGenresId, HttpPostedFileBase file)
+        public JsonResult Movie(Movie movie, List<int> selectedGenresId, HttpPostedFileBase file)
         {
             string folderDirectory = "/MovieCover";
             string filename = "";
@@ -82,6 +73,16 @@ namespace MusicStoreMVCApp.Controllers
             db.SaveChanges();
 
             return Json(new { StatusMessage = "", RedirectURL = "/Seller" });
+        }
+
+
+        public ActionResult AddMovie()
+        {
+            List<Genre> genres = db.Genres.ToList();
+
+            AddMovieViewModel model = new AddMovieViewModel() { Genres = genres };
+
+            return View(model);
         }
     }
 }
