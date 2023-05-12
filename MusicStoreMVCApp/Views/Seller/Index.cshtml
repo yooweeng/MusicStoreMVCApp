@@ -4,6 +4,27 @@
     ViewBag.Title = "Index";
 }
 
+@section Scripts {
+    <script>
+        let selectedId;
+
+        function modifySelectedId(id) {
+            selectedId = id;
+        }
+
+        function deleteMovie() {
+            $.ajax({
+                url: "/Seller/Movie/" + selectedId,
+                type: 'DELETE',
+                success: function (data) { },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
+        }
+    </script>
+}
+
 <div class="p-5 bg-secondary">
     <h2>Movies / Products</h2>
 
@@ -18,7 +39,7 @@
                         <p class="card-text">@item.Description</p>
                         <div class="d-flex justify-content-end">
                             <button class="btn btn-success me-3"><i class="fa-sharp fa-solid fa-pencil" style="color: #ffffff;"></i></button>
-                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeletionModal"><i class="fa-solid fa-trash-can" style="color: #ffffff;"></i></button>
+                            <button class="btn btn-danger" onclick="modifySelectedId(@item.Id)" data-bs-toggle="modal" data-bs-target="#confirmDeletionModal"><i class="fa-solid fa-trash-can" style="color: #ffffff;"></i></button>
                         </div>
                     </div>
                 </div>
@@ -39,7 +60,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger">Yes, I confirm</button>
+                    <a class="btn btn-danger" onclick="deleteMovie()">Yes, I confirm</a>
                 </div>
             </div>
         </div>

@@ -75,6 +75,22 @@ namespace MusicStoreMVCApp.Controllers
             return Json(new { StatusMessage = "", RedirectURL = "/Seller" });
         }
 
+        [HttpDelete]
+        public ActionResult Movie(int id)
+        {
+            List<MovieGenre> movieGenresByMovieId = db.MovieGenres.Where(movieGenre => movieGenre.MovieId == id).ToList();
+            foreach (MovieGenre movieGenre in movieGenresByMovieId)
+            {
+                db.MovieGenres.Remove(movieGenre);
+            }
+
+            Movie movieById = db.Movies.Where(movie => movie.Id == id).FirstOrDefault();
+            db.Movies.Remove(movieById);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
 
         public ActionResult AddMovie()
         {
