@@ -32,7 +32,7 @@ namespace MusicStoreMVCApp.Controllers
         }
 
         [HttpPost]
-        public void AddMovie(Movie movie, List<int> selectedGenresId, HttpPostedFileBase file)
+        public JsonResult AddMovie(Movie movie, List<int> selectedGenresId, HttpPostedFileBase file)
         {
             string path = "";
             // insert into Movie table without imageUrl
@@ -77,6 +77,8 @@ namespace MusicStoreMVCApp.Controllers
                 });
             }
             db.SaveChanges();
+
+            return Json(new { StatusMessage = "", RedirectURL = "/Seller" });
         }
     }
 }
