@@ -11,15 +11,26 @@
 
     <div class="container-fluid">
         <div class="row">
-            @foreach (var item in Model)
+            @foreach (Movie movie in Model)
             {
                 <div class="col-3 card bg-dark text-white rounded-5 m-5 p-4">
-                    <img src="@item.ImageUrl" class="card-img-top rounded-3">
+                    <img src="@movie.ImageUrl" class="card-img-top rounded-3">
                     <div class="card-body pb-0">
-                        <h5 class="card-title">@item.MovieTitle</h5>
-                        <p class="card-text">@item.Description</p>
+                        <p class="card-text">
+                            <span class="fw-bold">
+                                Genre:&nbsp;
+                            </span>
+                            @foreach (MovieGenre movieGenre in movie.MovieGenres)
+                            {
+                                <span>
+                                    @Html.DisplayFor(item => movieGenre.Genre.GenreType)&nbsp;
+                                </span>
+                            }
+                        </p>
+                        <h5 class="card-title">@movie.MovieTitle</h5>
+                        <p class="card-text">@movie.Description</p>
                         <div class="d-flex justify-content-end">
-                            <a href="/Customer/MovieDetail/@item.Id" class="btn btn-warning me-3 text-white">
+                            <a href="/Customer/MovieDetail/@movie.Id" class="btn btn-warning me-3 text-white">
                                 View
                                 <i class="fa-solid fa-book" style="color: #ffffff;"></i>
                             </a>
