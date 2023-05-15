@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MusicStoreMVCApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,8 +16,24 @@ namespace MusicStoreMVCApp.Controllers
         public ActionResult Index()
         {
             List<Movie> movies = db.Movies.ToList();
+            List<Genre> genres = db.Genres.ToList();
+            List<MovieGenre> movieGenres = db.MovieGenres.ToList();
+            List<MovieIdGenreIdModel> movieIdGenreIds =new List<MovieIdGenreIdModel>();
 
-            return View(movies);
+            foreach(MovieGenre movieGenre in movieGenres)
+            {
+                movieIdGenreIds.Add(new MovieIdGenreIdModel()
+                {
+                    MovieId = movieGenre.MovieId,
+                    GenreId = movieGenre.GenreId
+                });
+            }
+
+            CustomerIndexViewModel model = new CustomerIndexViewModel() { 
+                Movies = movies, Genres = genres, MovieIdGenreIds = movieIdGenreIds 
+            };
+
+            return View(model);
         }
 
         public ActionResult Cart()
