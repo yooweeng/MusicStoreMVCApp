@@ -4,59 +4,56 @@
     ViewBag.Title = "Movie Details";
 }
 
-<h2>Movie Details</h2>
+<div class="p-5">
+    <div>
+        <h2>Movie Details</h2>
+        <div class="card shadow rounded-4 dl-horizontal mt-4 p-5">
+            <img src="@Model.ImageUrl" style="width: fit-content" />
+            <div class="mt-4 mb-2">
+                <h5 class="m-0">Genre</h5>
+                <span>
+                    @foreach (MovieGenre movieGenre in Model.MovieGenres)
+                    {
+                        <span>
+                            @Html.DisplayFor(item => movieGenre.Genre.GenreType)&nbsp;
+                        </span>
+                    }
+                </span>
+            </div>
+            <div class="mb-2">
+                <h5 class="m-0">Title</h5>
+                @Html.DisplayFor(model => model.MovieTitle) <br />
+            </div>
 
-<div>
-    <h4>Movie</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.MovieTitle)
-        </dt>
+            <div class="mb-2">
+                <h5 class="m-0">@Html.DisplayNameFor(model => model.Description)</h5>
+                @Html.DisplayFor(model => model.Description) <br />
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.MovieTitle)
-        </dd>
+            <div class="mb-2">
+                <h5 class="m-0">@Html.DisplayNameFor(model => model.Price)</h5>
+                RM @Html.DisplayFor(model => model.Price) <br />
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+            <div class="mb-2">
+                <h5 class="m-0">Released Year</h5>
+                @Html.DisplayFor(model => model.ReleasedYear) <br />
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ImageUrl)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ReleasedYear)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ReleasedYear)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SellerId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SellerId)
-        </dd>
-
-    </dl>
+            <div>
+                <h5 class="m-0">
+                    @Html.DisplayNameFor(model => model.Seller)
+                </h5>
+                @Html.DisplayFor(model => model.Seller.Fname)
+                @Html.DisplayFor(model => model.Seller.Lname)
+            </div>
+        </div>
+        <div class="mt-4">
+            <a href="/Customer" class="btn btn-secondary me-1">Back to Mainpage</a>
+            <button class="btn btn-success">
+                Add to Cart
+                <i class="fa-solid fa-cart-shopping" style="color: #ffffff;"></i>
+            </button>
+        </div>
+    </div>
 </div>
