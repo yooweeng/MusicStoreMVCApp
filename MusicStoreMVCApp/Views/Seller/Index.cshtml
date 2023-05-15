@@ -30,16 +30,27 @@
 
     <div class="container-fluid">
         <div class="row">
-            @foreach (var item in Model)
+            @foreach (Movie movie in Model)
             {
                 <div class="col-3 card bg-dark text-white rounded-5 m-5 p-4">
-                    <img src="@item.ImageUrl" class="card-img-top rounded-3">
+                    <img src="@movie.ImageUrl" class="card-img-top rounded-3">
                     <div class="card-body pb-0">
-                        <h5 class="card-title">@item.MovieTitle</h5>
-                        <p class="card-text">@item.Description</p>
+                        <p class="card-text">
+                            <span class="fw-bold">
+                                Genre:&nbsp;
+                            </span>
+                            @foreach (MovieGenre movieGenre in movie.MovieGenres)
+                            {
+                                <span>
+                                    @Html.DisplayFor(item => movieGenre.Genre.GenreType)&nbsp;
+                                </span>
+                            }
+                        </p>
+                        <h5 class="card-title">@movie.MovieTitle</h5>
+                        <p class="card-text">@movie.Description</p>
                         <div class="d-flex justify-content-end">
                             <button class="btn btn-success me-3"><i class="fa-sharp fa-solid fa-pencil" style="color: #ffffff;"></i></button>
-                            <button class="btn btn-danger" onclick="modifySelectedId(@item.Id)" data-bs-toggle="modal" data-bs-target="#confirmDeletionModal"><i class="fa-solid fa-trash-can" style="color: #ffffff;"></i></button>
+                            <button class="btn btn-danger" onclick="modifySelectedId(@movie.Id)" data-bs-toggle="modal" data-bs-target="#confirmDeletionModal"><i class="fa-solid fa-trash-can" style="color: #ffffff;"></i></button>
                         </div>
                     </div>
                 </div>
