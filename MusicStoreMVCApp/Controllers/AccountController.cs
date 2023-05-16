@@ -112,7 +112,14 @@ namespace MusicStoreMVCApp.Controllers
                         // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                         // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");                     
 
-                        ApprovalList approval = new ApprovalList() { SellerFname = model.Firstname, SellerLname = model.Lastname, Address = model.Address, PhoneNumber = model.PhoneNumber };
+                        ApprovalList approval = new ApprovalList() 
+                        { 
+                            SellerEmail = model.Email,
+                            SellerFname = model.Firstname, 
+                            SellerLname = model.Lastname, 
+                            Address = model.Address, 
+                            PhoneNumber = model.PhoneNumber 
+                        };
                         db.ApprovalLists.Add(approval);
                         db.SaveChanges();
                         
