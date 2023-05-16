@@ -40,7 +40,12 @@ namespace MusicStoreMVCApp.Controllers
 
         public ActionResult Cart()
         {
-            return View(db.Carts.ToList().OrderBy(cart => cart.MovieId));
+            int currentUserId = int.Parse(User.Identity.GetUserId());
+            int currentCustomerId = db.Customers.Where(customer => customer.UserId == currentUserId).First().CustomerId;
+
+            List<Cart> cartToShow = db.Carts.Where(cartItem => cartItem.CustomerId == currentCustomerId)
+                                            .OrderBy(cart => cart.MovieId).ToList();
+            return View(cartToShow);
         }
 
         [HttpPost]
@@ -88,6 +93,11 @@ namespace MusicStoreMVCApp.Controllers
             }
 
             return View("Error");
+        }
+
+        public ActionResult Checkout()
+        {
+            return View();
         }
     }
 }
