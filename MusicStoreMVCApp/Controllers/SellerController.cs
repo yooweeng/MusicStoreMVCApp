@@ -1,4 +1,5 @@
-﻿using MusicStoreMVCApp.Models;
+﻿using Microsoft.AspNet.Identity;
+using MusicStoreMVCApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,14 +18,20 @@ namespace MusicStoreMVCApp.Controllers
         // GET: Seller
         public ActionResult Index()
         {
-            List<Movie> movies = db.Movies.ToList();
+            int currentUserId = int.Parse(User.Identity.GetUserId());
+            int currentSellerId = db.Sellers.Where(seller => seller.UserId == currentUserId).First().SellerId;
 
-            return View(movies);
+            List<Movie> moviesByCurrentSeller = db.Movies.Where(movie => movie.SellerId == currentSellerId).ToList();
+
+            return View(moviesByCurrentSeller);
         }
 
         [HttpPost]
         public JsonResult Movie(Movie movie, List<int> selectedGenresId, HttpPostedFileBase file)
         {
+            int currentUserId = int.Parse(User.Identity.GetUserId());
+            int currentSellerId = db.Sellers.Where(seller => seller.UserId == currentUserId).First().SellerId;
+
             string folderDirectory = "/MovieCover";
             string filename = "";
 
@@ -35,7 +42,7 @@ namespace MusicStoreMVCApp.Controllers
                 Description = movie.Description,
                 Price = movie.Price,
                 ReleasedYear = movie.ReleasedYear,
-                SellerId = 1
+                SellerId = currentSellerId
             });
             db.SaveChanges();
 
