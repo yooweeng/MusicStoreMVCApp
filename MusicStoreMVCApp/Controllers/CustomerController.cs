@@ -110,15 +110,32 @@ namespace MusicStoreMVCApp.Controllers
             {
                 int currentUserId = int.Parse(User.Identity.GetUserId());
                 int currentCustomerId = db.Customers.Where(customer => customer.UserId == currentUserId).First().CustomerId;
+                int quantity;
+
+                // create a new order
+                Order order = db.Orders.Add(new Order() { Date = DateTime.Now, Status = "pending", ReferenceNumber = "test" });
+                db.SaveChanges();
 
                 foreach (int movieId in selectedMovieIds)
                 {
+                    Movie movie = db.Movies.Where(m => m.Id == movieId).Single();
                     List<Cart> cartItemsByMovieId = db.Carts.Where(cartItem => (cartItem.MovieId == movieId) && 
                                                                                 (cartItem.CustomerId == currentCustomerId)).ToList();
+                    quantity = cartItemsByMovieId.Count;
+
+                    // remove from cart
                     foreach(Cart cartItem in cartItemsByMovieId)
                     {
                         db.Carts.Remove(cartItem);
                     }
+
+                    db.OrderMovies.Add(new OrderMovie()
+                    {
+                        MovieId = movieId,
+                        UnitPrice = movie.Price,
+                        Quantity = quantity,
+                        Order = order
+                    });
                 }
                 db.SaveChanges();
             }
