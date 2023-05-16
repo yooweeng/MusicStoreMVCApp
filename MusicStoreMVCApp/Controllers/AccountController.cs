@@ -38,13 +38,25 @@ namespace MusicStoreMVCApp.Controllers
                 return View(model);
             }
 
+            var user = await userManager.FindByNameAsync(model.Email);
+            if (user.UserType == UserType.Seller)
+            {
+                ApprovalList sellerInApprovalList = db.ApprovalLists.Where(seller => seller.SellerEmail == model.Email).SingleOrDefault();
+                // if no record of seller in approval list or
+                // the status is other than 'Approved'
+                if (sellerInApprovalList == null || sellerInApprovalList.Status != 1)
+                {
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return View(model);
+                }
+            }
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
-                    var user = await userManager.FindByNameAsync(model.Email);
                     if (user != null)
                     {
                         if (user.UserType == UserType.Admin)
@@ -53,6 +65,7 @@ namespace MusicStoreMVCApp.Controllers
                             return RedirectToAction("Index", "Customer");
                         else if (user.UserType == UserType.Seller)
                             return RedirectToAction("Index", "Seller");
+                        return RedirectToAction("Error");
                     }
                     return RedirectToAction("Error");
                 case SignInStatus.LockedOut:
@@ -141,6 +154,11 @@ namespace MusicStoreMVCApp.Controllers
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Error()
+        {
+            return View();
         }
 
         private IAuthenticationManager AuthenticationManager
