@@ -5,17 +5,17 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="3d31de2b1c144ba682cbefeff31652a4" Name="Diagram1">
-        <EntityTypeShape EntityType="MusicStoreAppModel.Actor" Width="1.5" PointX="3" PointY="17.625" />
+        <EntityTypeShape EntityType="MusicStoreAppModel.Actor" Width="1.5" PointX="6" PointY="0.75" />
         <EntityTypeShape EntityType="MusicStoreAppModel.ApprovalList" Width="1.5" PointX="3" PointY="10" />
-        <EntityTypeShape EntityType="MusicStoreAppModel.Cart" Width="1.5" PointX="5.25" PointY="6.5" />
-        <EntityTypeShape EntityType="MusicStoreAppModel.Customer" Width="1.5" PointX="3" PointY="14.5" />
-        <EntityTypeShape EntityType="MusicStoreAppModel.Genre" Width="1.5" PointX="6" PointY="0.75" />
-        <EntityTypeShape EntityType="MusicStoreAppModel.Movie" Width="1.5" PointX="3" PointY="5.875" />
-        <EntityTypeShape EntityType="MusicStoreAppModel.MovieActor" Width="1.5" PointX="5.25" PointY="9.5" />
-        <EntityTypeShape EntityType="MusicStoreAppModel.MovieGenre" Width="1.5" PointX="8.25" PointY="6.5" />
-        <EntityTypeShape EntityType="MusicStoreAppModel.Order" Width="1.5" PointX="3" PointY="2.5" />
-        <EntityTypeShape EntityType="MusicStoreAppModel.OrderMovie" Width="1.5" PointX="5.25" PointY="3.375" />
-        <EntityTypeShape EntityType="MusicStoreAppModel.Seller" Width="1.5" PointX="0.75" PointY="8" />
+        <EntityTypeShape EntityType="MusicStoreAppModel.Cart" Width="1.5" PointX="5.25" PointY="9.5" />
+        <EntityTypeShape EntityType="MusicStoreAppModel.Customer" Width="1.5" PointX="3" PointY="17.5" />
+        <EntityTypeShape EntityType="MusicStoreAppModel.Genre" Width="1.5" PointX="3" PointY="2.875" />
+        <EntityTypeShape EntityType="MusicStoreAppModel.Movie" Width="1.5" PointX="3" PointY="6" />
+        <EntityTypeShape EntityType="MusicStoreAppModel.MovieActor" Width="1.5" PointX="8.25" PointY="6.625" />
+        <EntityTypeShape EntityType="MusicStoreAppModel.MovieGenre" Width="1.5" PointX="5.25" PointY="3.625" />
+        <EntityTypeShape EntityType="MusicStoreAppModel.Order" Width="1.5" PointX="3" PointY="14.625" />
+        <EntityTypeShape EntityType="MusicStoreAppModel.OrderMovie" Width="1.5" PointX="5.25" PointY="6.5" />
+        <EntityTypeShape EntityType="MusicStoreAppModel.Seller" Width="1.5" PointX="0.75" PointY="8.125" />
         <AssociationConnector Association="MusicStoreAppModel.FK_MovieActor_Actor" />
         <AssociationConnector Association="MusicStoreAppModel.FK_ApprovalList_Seller" />
         <AssociationConnector Association="MusicStoreAppModel.FK_Cart_Customer" />

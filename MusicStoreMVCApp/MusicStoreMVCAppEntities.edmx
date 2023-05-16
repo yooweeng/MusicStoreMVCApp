@@ -44,6 +44,7 @@
           <Property Name="Lname" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
@@ -383,6 +384,7 @@
           <Property Name="Lname" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Carts" Relationship="MusicStoreAppModel.FK_Cart_Customer" FromRole="Customer" ToRole="Cart" />
         </EntityType>
         <EntityType Name="Genre">
@@ -627,6 +629,7 @@
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="MusicStoreAppModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Lname" ColumnName="Lname" />

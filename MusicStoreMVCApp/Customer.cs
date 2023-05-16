@@ -25,6 +25,7 @@ namespace MusicStoreMVCApp
         public string Lname { get; set; }
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
+        public int UserId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart> Carts { get; set; }
