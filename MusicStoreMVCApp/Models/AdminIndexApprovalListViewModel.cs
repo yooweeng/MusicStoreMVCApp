@@ -7,6 +7,7 @@ namespace MusicStoreMVCApp.Models
 {
     public class AdminIndexApprovalListViewModel
     {
+        public int Id { get; set; }
         public string SellerFname { get; set; }
         public string SellerLname { get; set; }
         public string Address { get; set; }
