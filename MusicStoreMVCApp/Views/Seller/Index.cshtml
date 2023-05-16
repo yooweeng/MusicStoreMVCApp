@@ -42,9 +42,18 @@
                                 </span>
                                 @foreach (MovieGenre movieGenre in movie.MovieGenres)
                                 {
-                                    <span>
-                                        @Html.DisplayFor(item => movieGenre.Genre.GenreType)&nbsp;
-                                    </span>
+                                    if (movieGenre != movie.MovieGenres.Last())
+                                    {
+                                        <span>
+                                            @Html.DisplayFor(item => movieGenre.Genre.GenreType),
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span>
+                                            @Html.DisplayFor(item => movieGenre.Genre.GenreType)
+                                        </span>
+                                    }
                                 }
                             </p>
                             <h5 class="card-title">@movie.MovieTitle</h5>
