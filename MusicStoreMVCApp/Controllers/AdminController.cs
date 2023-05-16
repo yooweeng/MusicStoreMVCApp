@@ -1,4 +1,6 @@
-﻿using MusicStoreMVCApp.Models;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using MusicStoreMVCApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +24,7 @@ namespace MusicStoreMVCApp.Controllers
             {
                 adminIndexApprovalList.Add(new AdminIndexApprovalListViewModel
                 {
+                    Id = approvalListItem.Id,
                     SellerEmail = approvalListItem.SellerEmail,
                     SellerFname = approvalListItem.SellerFname,
                     SellerLname = approvalListItem.SellerLname,
@@ -40,14 +43,20 @@ namespace MusicStoreMVCApp.Controllers
             ApprovalList approvalItemById = db.ApprovalLists.SingleOrDefault(item => item.Id == Id);
             approvalItemById.Status = 1;
 
+            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var user = userManager.FindByName(approvalItemById.SellerEmail);
+
             // insert record into seller table
-            db.Sellers.Add(new Seller()
+            Seller insertedSeller = db.Sellers.Add(new Seller()
             {
                 Fname = approvalItemById.SellerFname,
                 Lname = approvalItemById.SellerLname,
                 Address = approvalItemById.Address,
-                PhoneNumber = approvalItemById.PhoneNumber
+                PhoneNumber = approvalItemById.PhoneNumber,
+                UserId = Convert.ToInt32(user.Id)
             });
+
+            approvalItemById.SellerId = insertedSeller.SellerId;
 
             db.SaveChanges();
 
