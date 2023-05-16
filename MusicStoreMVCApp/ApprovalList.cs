@@ -20,5 +20,9 @@ namespace MusicStoreMVCApp
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
         public byte Status { get; set; }
+        public Nullable<int> SellerId { get; set; }
+        public string SellerEmail { get; set; }
+    
+        public virtual Seller Seller { get; set; }
     }
 }

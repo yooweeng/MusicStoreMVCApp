@@ -23,6 +23,8 @@
           <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="Status" Type="tinyint" Nullable="false" />
+          <Property Name="SellerId" Type="int" />
+          <Property Name="SellerEmail" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
         <EntityType Name="Cart">
           <Key>
@@ -107,6 +109,18 @@
           <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="15" Nullable="false" />
         </EntityType>
+        <Association Name="FK_ApprovalList_Seller">
+          <End Role="Seller" Type="Self.Seller" Multiplicity="0..1" />
+          <End Role="ApprovalList" Type="Self.ApprovalList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seller">
+              <PropertyRef Name="SellerId" />
+            </Principal>
+            <Dependent Role="ApprovalList">
+              <PropertyRef Name="SellerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Cart_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
           <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
@@ -227,6 +241,10 @@
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderMovie" EntityType="Self.OrderMovie" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Seller" EntityType="Self.Seller" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ApprovalList_Seller" Association="Self.FK_ApprovalList_Seller">
+            <End Role="Seller" EntitySet="Seller" />
+            <End Role="ApprovalList" EntitySet="ApprovalList" />
+          </AssociationSet>
           <AssociationSet Name="FK_Cart_Customer" Association="Self.FK_Cart_Customer">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Cart" EntitySet="Cart" />
@@ -284,6 +302,10 @@
             <End Role="Actor" EntitySet="Actors" />
             <End Role="MovieActor" EntitySet="MovieActors" />
           </AssociationSet>
+          <AssociationSet Name="FK_ApprovalList_Seller" Association="MusicStoreAppModel.FK_ApprovalList_Seller">
+            <End Role="Seller" EntitySet="Sellers" />
+            <End Role="ApprovalList" EntitySet="ApprovalLists" />
+          </AssociationSet>
           <AssociationSet Name="FK_Cart_Customer" Association="MusicStoreAppModel.FK_Cart_Customer">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="Cart" EntitySet="Carts" />
@@ -336,6 +358,9 @@
           <Property Name="Address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Byte" Nullable="false" />
+          <Property Name="SellerId" Type="Int32" />
+          <Property Name="SellerEmail" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Seller" Relationship="MusicStoreAppModel.FK_ApprovalList_Seller" FromRole="ApprovalList" ToRole="Seller" />
         </EntityType>
         <EntityType Name="Cart">
           <Key>
@@ -435,6 +460,7 @@
           <Property Name="Lname" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ApprovalLists" Relationship="MusicStoreAppModel.FK_ApprovalList_Seller" FromRole="Seller" ToRole="ApprovalList" />
           <NavigationProperty Name="Movies" Relationship="MusicStoreAppModel.FK_Movie_Seller" FromRole="Seller" ToRole="Movie" />
         </EntityType>
         <Association Name="FK_MovieActor_Actor">
@@ -446,6 +472,18 @@
             </Principal>
             <Dependent Role="MovieActor">
               <PropertyRef Name="ActorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ApprovalList_Seller">
+          <End Type="MusicStoreAppModel.Seller" Role="Seller" Multiplicity="0..1" />
+          <End Type="MusicStoreAppModel.ApprovalList" Role="ApprovalList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seller">
+              <PropertyRef Name="SellerId" />
+            </Principal>
+            <Dependent Role="ApprovalList">
+              <PropertyRef Name="SellerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -563,6 +601,8 @@
           <EntitySetMapping Name="ApprovalLists">
             <EntityTypeMapping TypeName="MusicStoreAppModel.ApprovalList">
               <MappingFragment StoreEntitySet="ApprovalList">
+                <ScalarProperty Name="SellerEmail" ColumnName="SellerEmail" />
+                <ScalarProperty Name="SellerId" ColumnName="SellerId" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
