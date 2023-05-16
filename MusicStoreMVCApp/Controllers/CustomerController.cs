@@ -99,5 +99,31 @@ namespace MusicStoreMVCApp.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public JsonResult Checkout(List<int> selectedMovieIds)
+        {
+            bool status = false;
+            string statusMessage = "Failed to remove item from the cart";
+
+            if(selectedMovieIds != null)
+            {
+                int currentUserId = int.Parse(User.Identity.GetUserId());
+                int currentCustomerId = db.Customers.Where(customer => customer.UserId == currentUserId).First().CustomerId;
+
+                foreach (int movieId in selectedMovieIds)
+                {
+                    List<Cart> cartItemsByMovieId = db.Carts.Where(cartItem => (cartItem.MovieId == movieId) && 
+                                                                                (cartItem.CustomerId == currentCustomerId)).ToList();
+                    foreach(Cart cartItem in cartItemsByMovieId)
+                    {
+                        db.Carts.Remove(cartItem);
+                    }
+                }
+                db.SaveChanges();
+            }
+
+            return Json(new { Status = status, StatusMessage = statusMessage });
+        }
     }
 }
