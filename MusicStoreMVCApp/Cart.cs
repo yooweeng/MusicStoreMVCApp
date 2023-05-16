@@ -15,7 +15,6 @@ namespace MusicStoreMVCApp
     public partial class Cart
     {
         public int Id { get; set; }
-        public int CartId { get; set; }
         public int MovieId { get; set; }
         public int CustomerId { get; set; }
     

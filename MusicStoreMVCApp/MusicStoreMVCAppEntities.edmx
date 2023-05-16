@@ -31,7 +31,6 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CartId" Type="int" Nullable="false" />
           <Property Name="MovieId" Type="int" Nullable="false" />
           <Property Name="CustomerId" Type="int" Nullable="false" />
         </EntityType>
@@ -369,7 +368,6 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CartId" Type="Int32" Nullable="false" />
           <Property Name="MovieId" Type="Int32" Nullable="false" />
           <Property Name="CustomerId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Customer" Relationship="MusicStoreAppModel.FK_Cart_Customer" FromRole="Cart" ToRole="Customer" />
@@ -621,7 +619,6 @@
               <MappingFragment StoreEntitySet="Cart">
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="MovieId" ColumnName="MovieId" />
-                <ScalarProperty Name="CartId" ColumnName="CartId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
