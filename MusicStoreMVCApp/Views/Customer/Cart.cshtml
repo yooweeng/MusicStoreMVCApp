@@ -4,6 +4,42 @@
     ViewBag.Title = "Cart";
 }
 
+@section Scripts{
+    <script>
+        function increaseQuantity(movieId) {
+            $.ajax({
+                url: '/Customer/Cart',
+                type: 'post',
+                data: {
+                    "MovieId": movieId
+                },
+                success: function (data) {
+                    window.location.reload();
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            })
+        }
+
+        function decreaseQuantity(movieId) {
+            $.ajax({
+                url: '/Customer/RemoveCart',
+                type: 'post',
+                data: {
+                    "MovieId": movieId
+                },
+                success: function (data) {
+                    window.location.reload();
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            })
+        }
+    </script>
+}
+
 <div class="p-5 bg-secondary" style="min-height: 561px;">
     <h2 class="mb-4 ps-3">Cart</h2>
 
@@ -27,10 +63,10 @@
                                     <p class="card-text">x @groupedItem.Count()</p>
                                 </div>
                                 <div class="d-flex">
-                                    <button class="btn btn-success btn-sm rounded-circle me-3" type="button">
+                                    <button class="btn btn-success btn-sm rounded-circle me-3" onclick="increaseQuantity(@groupedItem.Key.Id)" type="button">
                                         <i class="fa-solid fa-cart-plus fa-lg" style="color: #ffffff;"></i>
                                     </button>
-                                    <button class="btn btn-danger btn-sm rounded-circle me-3" type="button">
+                                    <button class="btn btn-danger btn-sm rounded-circle me-3" onclick="decreaseQuantity(@groupedItem.Key.Id)" type="button">
                                         <i class="fa-solid fa-cart-arrow-down fa-lg" style="color: #ffffff;"></i>
                                     </button>
                                 </div>
