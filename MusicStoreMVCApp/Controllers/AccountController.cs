@@ -113,6 +113,16 @@ namespace MusicStoreMVCApp.Controllers
                         // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                         // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
+                        db.Customers.Add(new Customer()
+                        {
+                            Fname = model.Firstname,
+                            Lname = model.Lastname,
+                            Address = model.Address,
+                            PhoneNumber = model.PhoneNumber,
+                            UserId = Convert.ToInt32(user.Id)
+                        });
+                        db.SaveChanges();
+
                         return RedirectToAction("Index", "Home");
                     }
                     else if (model.UserType == UserType.Seller)
