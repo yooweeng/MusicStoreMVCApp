@@ -19,8 +19,19 @@ namespace MusicStoreMVCApp.Controllers
 
         public JsonResult Approve(int Id)
         {
+            // update approval list status
             ApprovalList approvalItemById = db.ApprovalLists.SingleOrDefault(item => item.Id == Id);
             approvalItemById.Status = 1;
+
+            // insert record into seller table
+            db.Sellers.Add(new Seller()
+            {
+                Fname = approvalItemById.SellerFname,
+                Lname = approvalItemById.SellerLname,
+                Address = approvalItemById.Address,
+                PhoneNumber = approvalItemById.PhoneNumber
+            });
+
             db.SaveChanges();
 
             return Json(new { 
