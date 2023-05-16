@@ -40,7 +40,7 @@ namespace MusicStoreMVCApp.Controllers
 
         public ActionResult Cart()
         {
-            return View();
+            return View(db.Carts.ToList());
         }
 
         [HttpPost]
