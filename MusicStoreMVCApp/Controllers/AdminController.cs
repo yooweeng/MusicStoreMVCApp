@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MusicStoreMVCApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,7 +15,23 @@ namespace MusicStoreMVCApp.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            return View(db.ApprovalLists.ToList());
+            List<ApprovalList> approvalList = db.ApprovalLists.ToList();
+            List<AdminIndexApprovalListViewModel> adminIndexApprovalList = new List<AdminIndexApprovalListViewModel>();
+
+            foreach(ApprovalList approvalListItem in approvalList)
+            {
+                adminIndexApprovalList.Add(new AdminIndexApprovalListViewModel
+                {
+                    SellerEmail = approvalListItem.SellerEmail,
+                    SellerFname = approvalListItem.SellerFname,
+                    SellerLname = approvalListItem.SellerLname,
+                    Address = approvalListItem.Address,
+                    PhoneNumber = approvalListItem.PhoneNumber,
+                    Status = approvalListItem.Status
+                });
+            }
+
+            return View(adminIndexApprovalList);
         }
 
         public JsonResult Approve(int Id)
