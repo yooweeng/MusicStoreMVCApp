@@ -14,9 +14,11 @@
 
         function deleteMovie() {
             $.ajax({
-                url: "/Seller/Movie/" + selectedId,
-                type: 'DELETE',
-                success: function (data) { },
+                url: "/Seller/DeleteMovie/" + selectedId,
+                type: 'post',
+                success: function (data) {
+                    window.location.reload();
+                },
                 error: function (error) {
                     console.error(error);
                 }

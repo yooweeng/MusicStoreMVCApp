@@ -72,11 +72,11 @@ namespace MusicStoreMVCApp.Controllers
             }
             db.SaveChanges();
 
-            return Json(new { StatusMessage = "", RedirectURL = "/Seller" });
+            return Json(new { Status = true, StatusMessage = "Successfully created movie", RedirectURL = "/Seller" });
         }
 
-        [HttpDelete]
-        public ActionResult Movie(int id)
+        [HttpPost]
+        public JsonResult DeleteMovie(int id)
         {
             List<MovieGenre> movieGenresByMovieId = db.MovieGenres.Where(movieGenre => movieGenre.MovieId == id).ToList();
             foreach (MovieGenre movieGenre in movieGenresByMovieId)
@@ -88,7 +88,7 @@ namespace MusicStoreMVCApp.Controllers
             db.Movies.Remove(movieById);
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return Json(new { Status = true, StatusMessage = "Successfully remove movie record" });
         }
 
 
