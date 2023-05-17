@@ -25,13 +25,11 @@ namespace MusicStoreMVCApp
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Actor> Actors { get; set; }
         public virtual DbSet<ApprovalList> ApprovalLists { get; set; }
         public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Genre> Genres { get; set; }
         public virtual DbSet<Movie> Movies { get; set; }
-        public virtual DbSet<MovieActor> MovieActors { get; set; }
         public virtual DbSet<MovieGenre> MovieGenres { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderMovie> OrderMovies { get; set; }

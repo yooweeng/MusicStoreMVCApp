@@ -157,9 +157,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actor.cs">
-      <DependentUpon>MusicStoreMVCAppEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="ApprovalList.cs">
       <DependentUpon>MusicStoreMVCAppEntities.tt</DependentUpon>
     </Compile>
@@ -194,9 +191,6 @@
     <Compile Include="Models\AddMovieViewModel.cs" />
     <Compile Include="Models\UserTypeModel.cs" />
     <Compile Include="Movie.cs">
-      <DependentUpon>MusicStoreMVCAppEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MovieActor.cs">
       <DependentUpon>MusicStoreMVCAppEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="MovieGenre.cs">
@@ -2452,7 +2446,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
@@ -2478,6 +2471,7 @@
     <Content Include="Views\Customer\MovieDetail.cshtml" />
     <Content Include="Views\Customer\Error.cshtml" />
     <Content Include="Views\Customer\Checkout.cshtml" />
+    <Content Include="Views\Seller\Order.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
