@@ -29,6 +29,8 @@
 
     @foreach (var order in Model.GroupBy(model => model.Order))
     {
+        double price = 0;
+
         <div class="card mb-4">
             <div class="card-header">
                 <span class="fw-bold">Order ID: </span>
@@ -48,7 +50,12 @@
                             <p class="card-text">x @orderItem.Quantity</p>
                         </div>
                     </div>
+                    price += orderItem.UnitPrice * orderItem.Quantity;
                 }
+                <div class="card-text d-flex justify-content-between">
+                    <p class="fw-bold my-auto">Total</p>
+                    <p>RM @price</p>
+                </div>
                 <div class="card-text d-flex justify-content-between">
                     <p class="fw-bold my-auto">Status</p>
                     <div class="dropdown">
