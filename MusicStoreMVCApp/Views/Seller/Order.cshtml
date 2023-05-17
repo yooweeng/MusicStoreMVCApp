@@ -1,0 +1,48 @@
+﻿@model IEnumerable<MusicStoreMVCApp.OrderMovie>
+
+@{
+    ViewBag.Title = "Order";
+}
+
+<div class="p-5">
+    <h2 class="mb-3">Orders</h2>
+
+    @foreach (var order in Model.GroupBy(model => model.Order))
+    {
+        <div class="card mb-4">
+            <div class="card-header">
+                <span class="fw-bold">Order ID: </span>
+                @order.Key.Id
+            </div>
+            <div class="card-body p-4">
+                <div class="card-text d-flex justify-content-between mb-3">
+                    <div class="fw-bold">Order Placed On</div>
+                    <div>@order.Key.Date.Value.ToShortDateString()</div>
+                </div>
+                @foreach (OrderMovie orderItem in order)
+                {
+                    <div class="d-flex justify-content-between mb-3">
+                        <img src="@orderItem.Movie.ImageUrl" width="200" />
+                        <div class="d-flex">
+                            <p class="card-text me-3">RM @orderItem.UnitPrice</p>
+                            <p class="card-text">x @orderItem.Quantity</p>
+                        </div>
+                    </div>
+                }
+                <div class="card-text d-flex justify-content-between">
+                    <p class="fw-bold my-auto">Status</p>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            @char.ToUpper(order.Key.Status[0])@order.Key.Status.Substring(1)
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item active">@char.ToUpper(order.Key.Status[0])@order.Key.Status.Substring(1)</a></li>
+                            <li><a class="dropdown-item">Shipped</a></li>
+                            <li><a class="dropdown-item">Delivered</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
