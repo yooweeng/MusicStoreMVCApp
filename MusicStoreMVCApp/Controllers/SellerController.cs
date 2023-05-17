@@ -116,5 +116,25 @@ namespace MusicStoreMVCApp.Controllers
             List<OrderMovie> orders = db.OrderMovies.Where(order => order.Movie.SellerId == currentSellerId).ToList();
             return View(orders);
         }
+
+        [HttpPost]
+        public JsonResult Order(int id, string orderStatus)
+        {
+            bool status = false;
+            string statusMessage = "Failed to update the order status";
+
+            Order orderById = db.Orders.Where(order => order.Id == id).SingleOrDefault();
+
+            if(orderById != null)
+            {
+                orderById.Status = orderStatus;
+                db.SaveChanges();
+
+                status = true;
+                statusMessage = "Successfully update the order status";
+            }
+
+            return Json(new { Status = status, StatusMessage = statusMessage });
+        }
     }
 }

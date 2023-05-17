@@ -4,6 +4,26 @@
     ViewBag.Title = "Order";
 }
 
+@section Scripts{
+    <script>
+        function updateOrderStatus(id, orderStatus) {
+            $.ajax({
+                url: '/Seller/Order/'+id,
+                method: 'post',
+                data: {
+                    orderStatus: orderStatus
+                },
+                success: function (data) {
+                    window.location.reload();
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
+        }
+    </script>
+}
+
 <div class="p-5">
     <h2 class="mb-3">Orders</h2>
 
@@ -36,9 +56,9 @@
                             @char.ToUpper(order.Key.Status[0])@order.Key.Status.Substring(1)
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item active">@char.ToUpper(order.Key.Status[0])@order.Key.Status.Substring(1)</a></li>
-                            <li><a class="dropdown-item">Shipped</a></li>
-                            <li><a class="dropdown-item">Delivered</a></li>
+                            <li><a class="dropdown-item" onclick="updateOrderStatus(@order.Key.Id, 'pending')">Pending</a></li>
+                            <li><a class="dropdown-item" onclick="updateOrderStatus(@order.Key.Id, 'shipped')">Shipped</a></li>
+                            <li><a class="dropdown-item" onclick="updateOrderStatus(@order.Key.Id, 'delivered')">Delivered</a></li>
                         </ul>
                     </div>
                 </div>
