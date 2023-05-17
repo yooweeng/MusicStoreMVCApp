@@ -162,5 +162,17 @@ namespace MusicStoreMVCApp.Controllers
 
             return Json(new { Status = status, StatusMessage = statusMessage, OrderId = orderId });
         }
+
+        public ActionResult OrderHistory()
+        {
+            int currentUserId = int.Parse(User.Identity.GetUserId());
+            int currentCustomerId = db.Customers.Where(customer => customer.UserId == currentUserId).First().CustomerId;
+
+            List<OrderMovie> orders = db.OrderMovies.Where(order => order.Order.CustomerId == currentCustomerId)
+                                                    .OrderByDescending(order => order.Order.Date)
+                                                    .ThenByDescending(order => order.Order.Id).ToList();
+
+            return View(orders);
+        }
     }
 }

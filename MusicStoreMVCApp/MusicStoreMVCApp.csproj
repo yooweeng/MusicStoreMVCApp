@@ -2472,6 +2472,7 @@
     <Content Include="Views\Customer\Error.cshtml" />
     <Content Include="Views\Customer\Checkout.cshtml" />
     <Content Include="Views\Seller\Order.cshtml" />
+    <Content Include="Views\Customer\OrderHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

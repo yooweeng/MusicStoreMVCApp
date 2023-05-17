@@ -1,0 +1,57 @@
+﻿@model IEnumerable<MusicStoreMVCApp.OrderMovie>
+
+@{
+    ViewBag.Title = "Order History";
+}
+
+<div class="p-5">
+    <h2 class="mb-3">Orders</h2>
+
+    @foreach (var order in Model.GroupBy(model => model.Order))
+    {
+        double price = 0;
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <span class="fw-bold">Order ID: </span>
+                @order.Key.Id
+            </div>
+            <div class="card-body p-4">
+                <div class="card-text d-flex justify-content-between mb-3">
+                    <div class="fw-bold">Order Placed On</div>
+                    <div>@order.Key.Date.Value.ToShortDateString()</div>
+                </div>
+                @foreach (OrderMovie orderItem in order)
+                {
+                    <div class="d-flex justify-content-between mb-3">
+                        <img src="@orderItem.Movie.ImageUrl" width="200" />
+                        <div class="d-flex">
+                            <p class="card-text me-3">RM @orderItem.UnitPrice</p>
+                            <p class="card-text">x @orderItem.Quantity</p>
+                        </div>
+                    </div>
+                    price += orderItem.UnitPrice * orderItem.Quantity;
+                }
+                <div class="card-text d-flex justify-content-between">
+                    <p class="fw-bold my-auto">Total</p>
+                    <p>RM @price</p>
+                </div>
+                <div class="card-text d-flex justify-content-between">
+                    <p class="fw-bold my-auto">Status</p>
+                    @if (order.Key.Status == "pending")
+                    {
+                        <p class="text-warning">@char.ToUpper(order.Key.Status[0])@order.Key.Status.Substring(1)</p>
+                    }
+                    else if (order.Key.Status == "shipping")
+                    {
+                        <p class="text-info">@char.ToUpper(order.Key.Status[0])@order.Key.Status.Substring(1)</p>
+                    }
+                    else if (order.Key.Status == "delivered")
+                    {
+                        <p class="text-success">@char.ToUpper(order.Key.Status[0])@order.Key.Status.Substring(1)</p>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
