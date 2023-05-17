@@ -107,33 +107,43 @@
             <h4>Summary</h4>
         </div>
         <div class="card-body">
-            @foreach (var groupedItem in Model.GroupBy(model => model.Movie))
+            @foreach (var groupedBySeller in Model.GroupBy(model => model.Movie.Seller))
             {
-                <div class="d-flex">
-                    @Html.CheckBox("movie" + groupedItem.Key.Id, false, new { onchange = "checkMovie(" + groupedItem.Key.Id + ",'" + groupedItem.Key.MovieTitle + "'," + groupedItem.Count() + ")" })
-                    <div class="card flex-grow-1 ms-3 mb-3">
-                        <div class="card-header">
-                            @groupedItem.Key.MovieTitle
-                        </div>
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                <img src="@groupedItem.Key.ImageUrl" width="200" />
-                                <div class="d-flex flex-column justify-content-between">
-                                    <div class="d-flex">
-                                        <p class="card-text me-3">RM @groupedItem.Key.Price</p>
-                                        <p class="card-text">x @groupedItem.Count()</p>
+                <div class="card mb-3">
+                    <div class="card-header">
+                        @groupedBySeller.Key.Fname @groupedBySeller.Key.Lname
+                    </div>
+                    <div class="card-body">
+                        @foreach (var groupedByMovie in groupedBySeller.GroupBy(model => model.Movie))
+                        {
+                            <div class="d-flex">
+                                @Html.CheckBox("movie" + groupedByMovie.Key.Id, false, new { onchange = "checkMovie(" + groupedByMovie.Key.Id + ",'" + groupedByMovie.Key.MovieTitle + "'," + groupedByMovie.Count() + ")" })
+                                <div class="card flex-grow-1 ms-3 mb-3">
+                                    <div class="card-header">
+                                        @groupedByMovie.Key.MovieTitle
                                     </div>
-                                    <div class="d-flex">
-                                        <button class="btn btn-success btn-sm rounded-circle me-3" onclick="increaseQuantity(@groupedItem.Key.Id)" type="button">
-                                            <i class="fa-solid fa-cart-plus fa-lg" style="color: #ffffff;"></i>
-                                        </button>
-                                        <button class="btn btn-danger btn-sm rounded-circle me-3" onclick="decreaseQuantity(@groupedItem.Key.Id)" type="button">
-                                            <i class="fa-solid fa-cart-arrow-down fa-lg" style="color: #ffffff;"></i>
-                                        </button>
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between">
+                                            <img src="@groupedByMovie.Key.ImageUrl" width="200" />
+                                            <div class="d-flex flex-column justify-content-between">
+                                                <div class="d-flex">
+                                                    <p class="card-text me-3">RM @groupedByMovie.Key.Price</p>
+                                                    <p class="card-text">x @groupedByMovie.Count()</p>
+                                                </div>
+                                                <div class="d-flex">
+                                                    <button class="btn btn-success btn-sm rounded-circle me-3" onclick="increaseQuantity(@groupedByMovie.Key.Id)" type="button">
+                                                        <i class="fa-solid fa-cart-plus fa-lg" style="color: #ffffff;"></i>
+                                                    </button>
+                                                    <button class="btn btn-danger btn-sm rounded-circle me-3" onclick="decreaseQuantity(@groupedByMovie.Key.Id)" type="button">
+                                                        <i class="fa-solid fa-cart-arrow-down fa-lg" style="color: #ffffff;"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     </div>
                 </div>
             }
