@@ -163,12 +163,17 @@ namespace MusicStoreMVCApp.Controllers
             return Json(new { Status = status, StatusMessage = statusMessage, OrderId = orderId });
         }
 
-        public ActionResult OrderHistory()
+        public ActionResult OrderHistory(string orderStatus)
         {
+            orderStatus = orderStatus == null ? "pending" : orderStatus;
+
+            ViewBag.Status = orderStatus;
+
             int currentUserId = int.Parse(User.Identity.GetUserId());
             int currentCustomerId = db.Customers.Where(customer => customer.UserId == currentUserId).First().CustomerId;
 
-            List<OrderMovie> orders = db.OrderMovies.Where(order => order.Order.CustomerId == currentCustomerId)
+            List<OrderMovie> orders = db.OrderMovies.Where(order => (order.Order.CustomerId == currentCustomerId) && 
+                                                    (order.Order.Status == orderStatus))
                                                     .OrderByDescending(order => order.Order.Date)
                                                     .ThenByDescending(order => order.Order.Id).ToList();
 

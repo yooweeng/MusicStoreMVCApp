@@ -6,6 +6,26 @@
 
 <div class="p-5">
     <h2 class="mb-3">Orders</h2>
+    <div class="mb-5">
+        @if (ViewBag.Status == "shipping")
+        {
+            <a href="/Customer/OrderHistory?orderStatus=pending" class="btn btn-secondary col-1 me-3">Pending</a>
+            <a href="/Customer/OrderHistory?orderStatus=shipping" class="btn btn-warning col-1 me-3">Shipping</a>
+            <a href="/Customer/OrderHistory?orderStatus=delivered" class="btn btn-secondary col-1">Delivered</a>
+        }
+        else if (ViewBag.Status == "delivered")
+        {
+            <a href="/Customer/OrderHistory?orderStatus=pending" class="btn btn-secondary col-1 me-3">Pending</a>
+            <a href="/Customer/OrderHistory?orderStatus=shipping" class="btn btn-secondary col-1 me-3">Shipping</a>
+            <a href="/Customer/OrderHistory?orderStatus=delivered" class="btn btn-warning col-1">Delivered</a>
+        }
+        else
+        {
+            <a href="/Customer/OrderHistory?orderStatus=pending" class="btn btn-warning col-1 me-3">Pending</a>
+            <a href="/Customer/OrderHistory?orderStatus=shipping" class="btn btn-secondary col-1 me-3">Shipping</a>
+            <a href="/Customer/OrderHistory?orderStatus=delivered" class="btn btn-secondary col-1">Delivered</a>
+        }
+    </div>
 
     @foreach (var order in Model.GroupBy(model => model.Order))
     {
