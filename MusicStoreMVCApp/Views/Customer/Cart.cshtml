@@ -8,6 +8,7 @@
     <script>
         let selectedMovies = [];
         let selectedMovieIds = [];
+        let total = 0;
 
         function increaseQuantity(movieId) {
             $.ajax({
@@ -41,7 +42,7 @@
             })
         }
 
-        function checkMovie(movieId, movieTitle, amount) {
+        function checkMovie(movieId, movieTitle, price, amount) {
             if ($('#movie' + movieId).is(':checked')) {
                 selectedMovies.push({
                     movieId: movieId,
@@ -49,6 +50,8 @@
                     amount: amount
                 });
                 selectedMovieIds.push(movieId);
+                total += price * amount;
+                $('#totalPrice').html(total.toFixed(2));
             }
             else {
                 for (let i = 0; i < selectedMovies.length; i++) {
@@ -65,6 +68,9 @@
                 if (index > -1) {
                     selectedMovieIds.splice(index, 1);
                 }
+
+                total -= price * amount;
+                $('#totalPrice').html(total.toFixed(2));
             }
 
             let list = '';
@@ -117,7 +123,7 @@
                         @foreach (var groupedByMovie in groupedBySeller.GroupBy(model => model.Movie))
                         {
                             <div class="d-flex">
-                                @Html.CheckBox("movie" + groupedByMovie.Key.Id, false, new { onchange = "checkMovie(" + groupedByMovie.Key.Id + ",'" + groupedByMovie.Key.MovieTitle + "'," + groupedByMovie.Count() + ")" })
+                                @Html.CheckBox("movie" + groupedByMovie.Key.Id, false, new { onchange = "checkMovie(" + groupedByMovie.Key.Id + ",'" + groupedByMovie.Key.MovieTitle + "'," + groupedByMovie.Key.Price + "," + groupedByMovie.Count() + ")" })
                                 <div class="card flex-grow-1 ms-3 mb-3">
                                     <div class="card-header">
                                         @groupedByMovie.Key.MovieTitle
@@ -154,6 +160,10 @@
                         @Html.TextBox("PromoCode", null, new { @class = "form-control text-secondary", @Value = "#LETSWATCH", disabled = "disabled" })
                         <div class="small">
                             Limited time promo code <span class="text-primary">#LETSWATCH</span>,<br />Enjoy all movie for FREE
+                        </div>
+                        <div class="d-flex justify-content-between mt-3">
+                            <h5 class="me-5">Total(RM)</h5>
+                            <p id="totalPrice">0.00</p>
                         </div>
                     </div>
                     <div>
