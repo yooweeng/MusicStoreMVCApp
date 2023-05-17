@@ -26,6 +26,27 @@ namespace MusicStoreMVCApp.Controllers
             return View(moviesByCurrentSeller);
         }
 
+        public ActionResult MovieDetail(int id)
+        {
+            Movie movieById = db.Movies.Where(movie => movie.Id == id).SingleOrDefault();
+
+            if(movieById != null)
+            {
+                List<Genre> genres = db.Genres.ToList();
+                List<int> selectedGenresId = new List<int>();
+                List<MovieGenre> movieGenresById = db.MovieGenres.Where(item => item.MovieId == id).ToList();
+                foreach(MovieGenre movieGenre in movieGenresById)
+                {
+                    selectedGenresId.Add(movieGenre.GenreId);
+                }
+
+                AddEditMovieViewModel model = new AddEditMovieViewModel() { Movie = movieById, Genres = genres, SelectedGenresId = selectedGenresId };
+
+                return View(model);
+            }
+            return View("Error");
+        }
+
         [HttpPost]
         public JsonResult Movie(Movie movie, List<int> selectedGenresId, HttpPostedFileBase file)
         {
@@ -83,6 +104,38 @@ namespace MusicStoreMVCApp.Controllers
         }
 
         [HttpPost]
+        public ActionResult EditMovie(int id, Movie movie, List<int> selectedGenresId)
+        {
+            Movie movieById = db.Movies.Where(movieItem => movieItem.Id == id).SingleOrDefault();
+
+            if (movieById != null)
+            {
+                // update movie
+                movieById.MovieTitle = movie.MovieTitle;
+                movieById.Description = movie.Description;
+                movieById.Price = movie.Price;
+                movieById.ReleasedYear = movie.ReleasedYear;
+
+                // update genre
+                List<MovieGenre> movieGenreByMovieIds = db.MovieGenres.Where(movieGenre => movieGenre.MovieId == id).ToList();
+                // remove all genre
+                foreach(MovieGenre item in movieGenreByMovieIds)
+                {
+                    db.MovieGenres.Remove(item);
+                }
+                // insert new genre
+                foreach(int selectedGenreId in selectedGenresId)
+                {
+                    db.MovieGenres.Add(new MovieGenre() { MovieId = id, GenreId = selectedGenreId });
+                }
+
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("MovieDetail", new { id = id });
+        }
+
+        [HttpPost]
         public JsonResult DeleteMovie(int id)
         {
             List<MovieGenre> movieGenresByMovieId = db.MovieGenres.Where(movieGenre => movieGenre.MovieId == id).ToList();
@@ -103,7 +156,7 @@ namespace MusicStoreMVCApp.Controllers
         {
             List<Genre> genres = db.Genres.ToList();
 
-            AddMovieViewModel model = new AddMovieViewModel() { Genres = genres };
+            AddEditMovieViewModel model = new AddEditMovieViewModel() { Genres = genres };
 
             return View(model);
         }
