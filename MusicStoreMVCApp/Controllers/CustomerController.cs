@@ -95,8 +95,9 @@ namespace MusicStoreMVCApp.Controllers
             return View("Error");
         }
 
-        public ActionResult Checkout()
+        public ActionResult Checkout(int id)
         {
+            ViewBag.OrderId = id;
             return View();
         }
 
@@ -105,6 +106,7 @@ namespace MusicStoreMVCApp.Controllers
         {
             bool status = false;
             string statusMessage = "Failed to remove item from the cart";
+            int orderId = 0;
 
             if(selectedMovieIds != null)
             {
@@ -146,18 +148,19 @@ namespace MusicStoreMVCApp.Controllers
                         db.Carts.Remove(cartItem);
                     }
 
-                    db.OrderMovies.Add(new OrderMovie()
-                    {
-                        MovieId = movieId,
-                        UnitPrice = movie.Price,
-                        Quantity = quantity,
-                        Order = orderDict[movie.SellerId]
-                    });
+                    OrderMovie orderMovie = db.OrderMovies.Add(new OrderMovie()
+                                            {
+                                                MovieId = movieId,
+                                                UnitPrice = movie.Price,
+                                                Quantity = quantity,
+                                                Order = orderDict[movie.SellerId]
+                                            });
+                    orderId = orderMovie.OrderId.HasValue ? orderMovie.OrderId.Value : 0;
                 }
                 db.SaveChanges();
             }
 
-            return Json(new { Status = status, StatusMessage = statusMessage });
+            return Json(new { Status = status, StatusMessage = statusMessage, OrderId = orderId });
         }
     }
 }

@@ -89,7 +89,7 @@
                     selectedMovieIds: selectedMovieIds
                 },
                 success: function (data) {
-                    window.location.replace('/Customer/Checkout');
+                    window.location.replace('/Customer/Checkout/'+data.OrderId);
                 },
                 error: function (error) {
                     console.error(error);
