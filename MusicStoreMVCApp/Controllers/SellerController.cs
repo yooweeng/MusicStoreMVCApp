@@ -113,7 +113,10 @@ namespace MusicStoreMVCApp.Controllers
             int currentUserId = int.Parse(User.Identity.GetUserId());
             int currentSellerId = db.Sellers.Where(seller => seller.UserId == currentUserId).Single().SellerId;
 
-            List<OrderMovie> orders = db.OrderMovies.Where(order => order.Movie.SellerId == currentSellerId).ToList();
+            List<OrderMovie> orders = db.OrderMovies.Where(order => order.Movie.SellerId == currentSellerId)
+                                                     .OrderByDescending(order => order.Order.Date)
+                                                     .ThenByDescending(order => order.Order.Id).ToList();
+
             return View(orders);
         }
 
