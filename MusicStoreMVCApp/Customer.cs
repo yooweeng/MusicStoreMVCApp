@@ -18,6 +18,7 @@ namespace MusicStoreMVCApp
         public Customer()
         {
             this.Carts = new HashSet<Cart>();
+            this.Orders = new HashSet<Order>();
         }
     
         public int CustomerId { get; set; }
@@ -29,5 +30,7 @@ namespace MusicStoreMVCApp
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart> Carts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

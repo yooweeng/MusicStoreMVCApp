@@ -71,6 +71,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Status" Type="nvarchar" MaxLength="20" />
           <Property Name="Date" Type="date" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderMovie">
           <Key>
@@ -165,6 +166,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Order_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_OrderMovie_Movie">
           <End Role="Movie" Type="Self.Movie" Multiplicity="1" />
           <End Role="OrderMovie" Type="Self.OrderMovie" Multiplicity="*" />
@@ -223,6 +236,10 @@
             <End Role="Movie" EntitySet="Movie" />
             <End Role="MovieGenre" EntitySet="MovieGenre" />
           </AssociationSet>
+          <AssociationSet Name="FK_Order_Customer" Association="Self.FK_Order_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
           <AssociationSet Name="FK_OrderMovie_Movie" Association="Self.FK_OrderMovie_Movie">
             <End Role="Movie" EntitySet="Movie" />
             <End Role="OrderMovie" EntitySet="OrderMovie" />
@@ -257,6 +274,10 @@
           <AssociationSet Name="FK_CartMovie_Movie" Association="MusicStoreAppModel.FK_CartMovie_Movie">
             <End Role="Movie" EntitySet="Movies" />
             <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Customer" Association="MusicStoreAppModel.FK_Order_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_MovieGenre_Genre" Association="MusicStoreAppModel.FK_MovieGenre_Genre">
             <End Role="Genre" EntitySet="Genres" />
@@ -314,6 +335,7 @@
           <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Carts" Relationship="MusicStoreAppModel.FK_Cart_Customer" FromRole="Customer" ToRole="Cart" />
+          <NavigationProperty Name="Orders" Relationship="MusicStoreAppModel.FK_Order_Customer" FromRole="Customer" ToRole="Order" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
@@ -356,6 +378,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="MusicStoreAppModel.FK_Order_Customer" FromRole="Order" ToRole="Customer" />
           <NavigationProperty Name="OrderMovies" Relationship="MusicStoreAppModel.FK_OrderMovie_Order" FromRole="Order" ToRole="OrderMovie" />
         </EntityType>
         <EntityType Name="OrderMovie">
@@ -416,6 +440,18 @@
             </Principal>
             <Dependent Role="Cart">
               <PropertyRef Name="MovieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Customer">
+          <End Type="MusicStoreAppModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="MusicStoreAppModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="CustomerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -553,6 +589,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="MusicStoreAppModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
