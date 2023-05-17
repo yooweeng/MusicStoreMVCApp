@@ -183,7 +183,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AdminIndexApprovalListViewModel.cs" />
-    <Compile Include="Models\CustomerIndexViewModel.cs" />
+    <Compile Include="Models\GuestCustomerIndexViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\MovieIdGenreIdModel.cs" />

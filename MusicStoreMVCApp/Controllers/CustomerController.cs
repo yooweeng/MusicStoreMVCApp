@@ -31,7 +31,7 @@ namespace MusicStoreMVCApp.Controllers
                 });
             }
 
-            CustomerIndexViewModel model = new CustomerIndexViewModel() { 
+            GuestCustomerIndexViewModel model = new GuestCustomerIndexViewModel() { 
                 Movies = movies, Genres = genres, MovieIdGenreIds = movieIdGenreIds 
             };
 

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MusicStoreMVCApp.Models
 {
-    public class CustomerIndexViewModel
+    public class GuestCustomerIndexViewModel
     {
         public IEnumerable<Movie> Movies { get; set; }
         public IEnumerable<Genre> Genres { get; set; }
