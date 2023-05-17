@@ -113,7 +113,7 @@ namespace MusicStoreMVCApp.Controllers
                 int quantity;
 
                 // create a new order
-                Order order = db.Orders.Add(new Order() { Date = DateTime.Now, Status = "pending", ReferenceNumber = "test" });
+                Order order = db.Orders.Add(new Order() { Date = DateTime.Now, Status = "pending" });
                 db.SaveChanges();
 
                 foreach (int movieId in selectedMovieIds)
