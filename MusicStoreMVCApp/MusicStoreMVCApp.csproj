@@ -188,7 +188,7 @@
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\MovieIdGenreIdModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
-    <Compile Include="Models\AddMovieViewModel.cs" />
+    <Compile Include="Models\AddEditMovieViewModel.cs" />
     <Compile Include="Models\UserTypeModel.cs" />
     <Compile Include="Movie.cs">
       <DependentUpon>MusicStoreMVCAppEntities.tt</DependentUpon>
@@ -2473,6 +2473,8 @@
     <Content Include="Views\Customer\Checkout.cshtml" />
     <Content Include="Views\Seller\Order.cshtml" />
     <Content Include="Views\Customer\OrderHistory.cshtml" />
+    <Content Include="Views\Seller\MovieDetail.cshtml" />
+    <Content Include="Views\Seller\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

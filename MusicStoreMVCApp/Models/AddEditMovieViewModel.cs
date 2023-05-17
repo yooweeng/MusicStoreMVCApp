@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MusicStoreMVCApp.Models
 {
-    public class AddMovieViewModel
+    public class AddEditMovieViewModel
     {
         public Movie Movie { get; set; }
         public List<Genre> Genres { get; set; } 
