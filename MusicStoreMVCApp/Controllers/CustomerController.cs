@@ -112,8 +112,25 @@ namespace MusicStoreMVCApp.Controllers
                 int currentCustomerId = db.Customers.Where(customer => customer.UserId == currentUserId).First().CustomerId;
                 int quantity;
 
-                // create a new order
-                Order order = db.Orders.Add(new Order() { Date = DateTime.Now, Status = "pending" });
+                List<Movie> moviesBySelectedMovieId = new List<Movie>();
+                Dictionary<int, Order> orderDict = new Dictionary<int, Order>();
+
+                // get list of movie by the movieId
+                foreach (int movieId in selectedMovieIds)
+                {
+                    Movie movie = db.Movies.Where(m => m.Id == movieId).Single();
+                    moviesBySelectedMovieId.Add(movie);
+                }
+                // group the list of movie by sellerid, number of group here represent number of unique seller
+                foreach (var group in moviesBySelectedMovieId.GroupBy(movie => movie.SellerId))
+                {
+                    // create new order
+                    Order order = db.Orders.Add(new Order() { Date = DateTime.Now, Status = "pending" });
+                    // add the order to dictionary:
+                    // - sellerid (key)
+                    // - order (value)
+                    orderDict.Add(group.Key, order);
+                }
                 db.SaveChanges();
 
                 foreach (int movieId in selectedMovieIds)
@@ -134,7 +151,7 @@ namespace MusicStoreMVCApp.Controllers
                         MovieId = movieId,
                         UnitPrice = movie.Price,
                         Quantity = quantity,
-                        Order = order
+                        Order = orderDict[movie.SellerId]
                     });
                 }
                 db.SaveChanges();
