@@ -11,10 +11,13 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-dark">
+    <nav class="navbar navbar-dark navbar-expand-md bg-dark">
         <div class="container-fluid">
             @Html.ActionLink("LetsMovie", "Index", "Home", new { area = "" }, new { @class = "navbar-brand text-white" })
-            <div class="navbar-collapse collapse">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse" id="navbarSupportedContent">
                 @if (Request.IsAuthenticated)
                 {
                     if (User.IsInRole("Admin"))
