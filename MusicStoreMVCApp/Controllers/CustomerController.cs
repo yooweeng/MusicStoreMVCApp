@@ -127,7 +127,7 @@ namespace MusicStoreMVCApp.Controllers
                 foreach (var group in moviesBySelectedMovieId.GroupBy(movie => movie.SellerId))
                 {
                     // create new order
-                    Order order = db.Orders.Add(new Order() { Date = DateTime.Now, Status = "pending" });
+                    Order order = db.Orders.Add(new Order() { Date = DateTime.Now, Status = "pending", CustomerId = currentCustomerId });
                     // add the order to dictionary:
                     // - sellerid (key)
                     // - order (value)
