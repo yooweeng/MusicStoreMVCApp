@@ -18,7 +18,7 @@
                 <div class="col-4">
                     @Html.LabelFor(m => m.Movie.MovieTitle, htmlAttributes: new { @class = "control-label col-md-2" })
                 </div>
-                <div class="col-3">
+                <div class="col-lg-3">
                     @Html.EditorFor(m => m.Movie.MovieTitle, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(m => m.Movie.MovieTitle, "", new { @class = "text-danger" })
                 </div>
@@ -27,7 +27,7 @@
                 <div class="col-4">
                     @Html.LabelFor(m => m.Movie.Description, htmlAttributes: new { @class = "control-label col-md-2" })
                 </div>
-                <div class="col-3">
+                <div class="col-lg-3">
                     @Html.TextAreaFor(m => m.Movie.Description, new { @class = "form-control" })
                     @Html.ValidationMessageFor(m => m.Movie.Description, "", new { @class = "text-danger" })
                 </div>
@@ -36,7 +36,7 @@
                 <div class="col-4">
                     @Html.LabelFor(m => m.Movie.Price, htmlAttributes: new { @class = "control-label col-md-2" })
                 </div>
-                <div class="col-3">
+                <div class="col-lg-3">
                     @Html.EditorFor(m => m.Movie.Price, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(m => m.Movie.Price, "", new { @class = "text-danger" })
                 </div>
@@ -45,7 +45,7 @@
                 <div class="col-4">
                     @Html.Label("Genre", htmlAttributes: new { @class = "control-label col-md-2" })
                 </div>
-                <div class="col-3">
+                <div class="col-lg-3">
                     @Html.DropDownListFor(m => m.SelectedGenresId, new MultiSelectList(Model.Genres, "Id", "GenreType"), new { @class = "col-12 chosen-select", multiple = "multiple" })
                 </div>
             </div>
@@ -53,7 +53,7 @@
                 <div class="col-4">
                     @Html.LabelFor(m => m.Movie.ReleasedYear, htmlAttributes: new { @class = "control-label col-md-2" })
                 </div>
-                <div class="col-3">
+                <div class="col-lg-3">
                     @Html.EditorFor(m => m.Movie.ReleasedYear, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(m => m.Movie.ReleasedYear, "", new { @class = "text-danger" })
                 </div>

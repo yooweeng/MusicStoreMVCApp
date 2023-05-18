@@ -43,7 +43,7 @@
                 </div>
                 @foreach (OrderMovie orderItem in order)
                 {
-                    <div class="d-flex justify-content-between mb-3">
+                    <div class="d-flex flex-column flex-sm-row justify-content-between mb-3">
                         <img src="@orderItem.Movie.ImageUrl" width="200" />
                         <div class="d-flex">
                             <p class="card-text me-3">RM @orderItem.UnitPrice</p>
