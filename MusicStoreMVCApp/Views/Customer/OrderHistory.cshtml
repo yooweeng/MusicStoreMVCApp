@@ -9,21 +9,21 @@
     <div class="mb-5">
         @if (ViewBag.Status == "shipping")
         {
-            <a href="/Customer/OrderHistory?orderStatus=pending" class="btn btn-secondary col-1 me-3">Pending</a>
-            <a href="/Customer/OrderHistory?orderStatus=shipping" class="btn btn-warning col-1 me-3">Shipping</a>
-            <a href="/Customer/OrderHistory?orderStatus=delivered" class="btn btn-secondary col-1">Delivered</a>
+            <a href="/Customer/OrderHistory?orderStatus=pending" class="btn btn-secondary me-3 mb-1">Pending</a>
+            <a href="/Customer/OrderHistory?orderStatus=shipping" class="btn btn-warning me-3 mb-1">Shipping</a>
+            <a href="/Customer/OrderHistory?orderStatus=delivered" class="btn btn-secondary mb-1">Delivered</a>
         }
         else if (ViewBag.Status == "delivered")
         {
-            <a href="/Customer/OrderHistory?orderStatus=pending" class="btn btn-secondary col-1 me-3">Pending</a>
-            <a href="/Customer/OrderHistory?orderStatus=shipping" class="btn btn-secondary col-1 me-3">Shipping</a>
-            <a href="/Customer/OrderHistory?orderStatus=delivered" class="btn btn-warning col-1">Delivered</a>
+            <a href="/Customer/OrderHistory?orderStatus=pending" class="btn btn-secondary me-3 mb-1">Pending</a>
+            <a href="/Customer/OrderHistory?orderStatus=shipping" class="btn btn-secondary me-3 mb-1">Shipping</a>
+            <a href="/Customer/OrderHistory?orderStatus=delivered" class="btn btn-warning mb-1">Delivered</a>
         }
         else
         {
-            <a href="/Customer/OrderHistory?orderStatus=pending" class="btn btn-warning col-1 me-3">Pending</a>
-            <a href="/Customer/OrderHistory?orderStatus=shipping" class="btn btn-secondary col-1 me-3">Shipping</a>
-            <a href="/Customer/OrderHistory?orderStatus=delivered" class="btn btn-secondary col-1">Delivered</a>
+            <a href="/Customer/OrderHistory?orderStatus=pending" class="btn btn-warning me-3 mb-1">Pending</a>
+            <a href="/Customer/OrderHistory?orderStatus=shipping" class="btn btn-secondary me-3 mb-1">Shipping</a>
+            <a href="/Customer/OrderHistory?orderStatus=delivered" class="btn btn-secondary mb-1">Delivered</a>
         }
     </div>
 
@@ -43,7 +43,7 @@
                 </div>
                 @foreach (OrderMovie orderItem in order)
                 {
-                    <div class="d-flex justify-content-between mb-3">
+                    <div class="d-flex flex-column flex-sm-row justify-content-between mb-3">
                         <img src="@orderItem.Movie.ImageUrl" width="200" />
                         <div class="d-flex">
                             <p class="card-text me-3">RM @orderItem.UnitPrice</p>
